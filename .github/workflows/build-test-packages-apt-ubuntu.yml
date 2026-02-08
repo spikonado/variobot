@@ -1,0 +1,21 @@
+name: Build & Test Packages - APT - Ubuntu
+
+on:
+  pull_request:
+  push:
+    branches: [kilted]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build_test_packages:
+    runs-on: ubuntu-latest
+    container:
+      image: rostooling/setup-ros-docker:ubuntu-noble-latest
+    steps:
+      - uses: ros-tooling/action-ros-ci@0.4.5
+        with:
+          target-ros2-distro: kilted
+          vcs-repo-file-url: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/variobot-apt-ubuntu.repos

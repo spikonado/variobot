@@ -1,0 +1,6 @@
+repositories:
+  # Fixes https://github.com/ros/joint_state_publisher/issues/105
+  ros/joint_state_publisher:
+    type: git
+    url: https://github.com/Amronos/joint_state_publisher.git
+    version: fix-inf-revolute-joints

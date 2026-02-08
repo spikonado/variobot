@@ -1,0 +1,13 @@
+# Colcon
+build
+install
+log
+
+# Drawio
+*.bkp
+
+# Freecad
+*.FCBak
+
+.cache
+compile_commands.json

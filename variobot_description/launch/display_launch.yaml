@@ -1,0 +1,24 @@
+%YAML 1.2
+---
+launch:
+  - arg:
+      name: "description_file"
+      default: "$(find-pkg-share variobot_description)/description/sdf/model.sdf.xacro"
+  - arg:
+      name: "rviz_config_file"
+      default: "$(find-pkg-share variobot_description)/config/rviz_config.rviz"
+
+  - node:
+      pkg: "robot_state_publisher"
+      exec: "robot_state_publisher"
+      name: "robot_state_publisher"
+      param:
+        - name: "robot_description"
+          type: "str"
+          value: "$(command 'xacro $(var description_file)')"
+
+  - node:
+      pkg: "rviz2"
+      exec: "rviz2"
+      name: "rviz2"
+      args: "--display-config $(var rviz_config_file)"

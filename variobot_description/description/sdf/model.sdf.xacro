@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<sdf version="1.11" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <model name="variobot" canonical_link="base_link">
+    <link name="base_link">
+      <must_be_base_link>true</must_be_base_link>
+    </link>
+
+    <joint name="base_footprint_joint" type="fixed">
+      <pose relative_to="base_link"/>
+      <parent>base_link</parent>
+      <child>base_footprint_link</child>
+    </joint>
+
+    <link name="base_footprint_link"/>
+  </model>
+</sdf>

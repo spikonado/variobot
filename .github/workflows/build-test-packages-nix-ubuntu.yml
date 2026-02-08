@@ -1,0 +1,36 @@
+name: Build & Test Packages - Nix - Ubuntu
+
+on:
+  pull_request:
+  push:
+    branches: [kilted]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build_test_packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - uses: cachix/install-nix-action@v31.9.0
+
+      - name: Pre-build devShell
+        run: nix build --accept-flake-config --no-link .#devShells.$(nix eval --impure --raw --expr 'builtins.currentSystem').default
+
+      - name: Build Packages
+        shell: 'nix develop --accept-flake-config -c bash -e {0}'
+        run: colcon build --event-handlers=console_cohesion+ --symlink-install
+
+      - name: Test Packages
+        shell: 'nix develop --accept-flake-config -c bash -e {0}'
+        run: |
+          colcon test --event-handlers=console_direct+
+          colcon test-result --all
+          colcon test-result --verbose
+
+      - name: Run fmt
+        shell: 'nix develop --accept-flake-config -c bash -e {0}'
+        run: nix fmt
