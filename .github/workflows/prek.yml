@@ -21,10 +21,6 @@ jobs:
       - name: Pre-build devShell
         run: nix build --accept-flake-config --no-link .#devShells.$(nix eval --impure --raw --expr 'builtins.currentSystem').default
 
-      - name: Install pnpm dependencies
-        shell: 'nix develop --accept-flake-config -c bash -e {0}'
-        run: pnpm install
-
       - name: Run prek
         shell: 'nix develop --accept-flake-config -c bash -e {0}'
         run: prek run -a
