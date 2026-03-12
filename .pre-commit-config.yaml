@@ -1,39 +1,43 @@
 # To use:
 #
-#     pre-commit run -a
+#     prek run -a --hook-stage manual
 #
 # Or:
 #
-#     pre-commit install  # (runs every time you commit in git)
+#     prek install --prepare-hooks -f  # (runs every time you commit in git)
 #
 # To update this file:
 #
-#     pre-commit autoupdate
+#     prek autoupdate
 #
-# See https://github.com/pre-commit/pre-commit
+# See https://prek.j178.dev/
+
+default_stages:
+  - manual
+  - pre-commit
 
 repos:
-  # Standard hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-json
       - id: check-merge-conflict
-      - id: check-xml
+      - id: check-symlinks
       - id: check-yaml
-        args: ["--allow-multiple-documents"]
+      - id: check-xml
       - id: end-of-file-fixer
+      - id: fix-byte-order-marker
       - id: mixed-line-ending
       - id: trailing-whitespace
-      - id: fix-byte-order-marker
 
-  # CPP hooks
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v22.1.0
+    rev: v22.1.1
     hooks:
       - id: clang-format
-        args: ["-fallback-style=none", "-i"]
+        args: ['-fallback-style=none', '-i']
 
-  # Spellcheck in comments and docs
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.2
     hooks:
@@ -44,8 +48,74 @@ repos:
     rev: 0.37.0
     hooks:
       - id: check-github-workflows
-        args: ["--verbose"]
+        args: ['--verbose']
       - id: check-github-actions
-        args: ["--verbose"]
+        args: ['--verbose']
       - id: check-dependabot
-        args: ["--verbose"]
+        args: ['--verbose']
+
+  - repo: local
+    hooks:
+      - id: commitlint
+        name: commitlint
+        language: system
+        entry: commitlint --edit
+        stages: [commit-msg]
+
+      - id: prettier-check
+        name: prettier
+        language: system
+        entry: prettier --check .
+        pass_filenames: false
+        stages: [pre-commit]
+
+      - id: prettier-write
+        name: prettier
+        language: system
+        entry: prettier --write .
+        pass_filenames: false
+        stages: [manual]
+
+  - repo: local
+    hooks:
+      - id: ament_copyright
+        name: ament_copyright
+        entry: ament_copyright
+        language: system
+      - id: ament_cppcheck
+        name: ament_cppcheck
+        entry: ament_cppcheck
+        language: system
+        files: \.(c|cc|cpp|cxx|h|hh|hpp|hxx)$
+      - id: ament_cpplint
+        name: ament_cpplint
+        entry: ament_cpplint
+        language: system
+        files: \.(c|cc|cpp|cxx|h|hh|hpp|hxx)$
+      - id: ament_flake8
+        name: ament_flake8
+        entry: ament_flake8
+        language: system
+        files: \.py$
+      - id: ament_lint_cmake
+        name: ament_lint_cmake
+        entry: ament_lint_cmake
+        language: system
+        files: CMakeLists\.txt$
+      - id: ament_pep257
+        name: ament_pep257
+        entry: ament_pep257
+        language: system
+        files: \.py$
+      - id: ament_uncrustify
+        name: ament_uncrustify
+        entry: ament_uncrustify
+        language: system
+        files: \.(c|cc|cpp|cxx|h|hh|hpp|hxx)$
+      - id: ament_xmllint
+        name: ament_xmllint
+        entry: ament_xmllint
+        language: system
+        # files: \.(sdf|urdf|xacro|xml)$
+        # ament_xmllint fails to properly parse package.xml on Nix
+        files: \.(sdf|urdf|xacro)$
