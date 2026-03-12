@@ -48,6 +48,7 @@
         devTools = with pkgs; [
           gh
           git
+          git-lfs
           pre-commit
         ];
 
@@ -88,7 +89,7 @@
         legacyPackages = rosPkgs;
 
         devShells.default = pkgs.mkShell {
-          name = "VarioBot Development Shell";
+          name = "variobot-shell";
           packages = [
             colconWrapped
             devTools
