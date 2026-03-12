@@ -46,10 +46,12 @@
         '';
 
         devTools = with pkgs; [
+          commitlint
           gh
           git
           git-lfs
-          pre-commit
+          prek
+          prettier
         ];
 
         # Define the ROS environment with all necessary dependencies

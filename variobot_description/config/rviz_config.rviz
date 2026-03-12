@@ -25,9 +25,9 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: ''
 Visualization Manager:
-  Class: ""
+  Class: ''
   Displays:
     - Alpha: 0.5
       Cell Size: 1
@@ -49,8 +49,8 @@ Visualization Manager:
       Value: true
     - Class: rviz_default_plugins/TF
       Enabled: true
-      Filter (blacklist): ""
-      Filter (whitelist): ""
+      Filter (blacklist): ''
+      Filter (whitelist): ''
       Frame Timeout: 15
       Frames:
         All Enabled: false
@@ -65,33 +65,32 @@ Visualization Manager:
       Show Names: false
       Tree:
         base_link:
-          base_footprint_link:
-            {}
+          base_footprint_link: {}
       Update Interval: 0
       Value: true
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
-      Description File: ""
+      Description File: ''
       Description Source: Topic
       Description Topic:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: ""
+        Value: ''
       Enabled: true
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
-        Link Tree Style: ""
+        Link Tree Style: ''
       Mass Properties:
         Inertia: false
         Mass: false
       Name: RobotModel
-      TF Prefix: ""
+      TF Prefix: ''
       Update Interval: 0
       Value: true
       Visual Enabled: true

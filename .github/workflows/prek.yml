@@ -1,0 +1,26 @@
+name: Prek
+
+on:
+  merge_group:
+  pull_request:
+  push:
+    branches: [kilted]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  run_prek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - uses: cachix/install-nix-action@v31.9.1
+
+      - name: Pre-build devShell
+        run: nix build --accept-flake-config --no-link .#devShells.$(nix eval --impure --raw --expr 'builtins.currentSystem').default
+
+      - name: Run prek
+        shell: 'nix develop --accept-flake-config -c bash -e {0}'
+        run: prek run -a
