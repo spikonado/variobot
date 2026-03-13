@@ -77,7 +77,7 @@
               robot-state-publisher
               ros2launch
               rviz2
-              sdformat-vendor
+              sdformat-urdf
               xacro
 
               # Tools

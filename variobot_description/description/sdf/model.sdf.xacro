@@ -5,12 +5,7 @@
       <must_be_base_link>true</must_be_base_link>
     </link>
 
-    <joint name="base_footprint_joint" type="fixed">
-      <pose relative_to="base_link"/>
-      <parent>base_link</parent>
-      <child>base_footprint_link</child>
-    </joint>
-
-    <link name="base_footprint_link"/>
+    <xacro:include
+      filename="mobility_systems/mecanum_drive/48mm_n20_mecanum_drive/48mm_n20_mecanum_drive.sdf.xacro" />
   </model>
 </sdf>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<sdf version="1.11" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <joint name="mobility_system_joint" type="fixed">
+    <pose relative_to="base_link" />
+    <parent>base_link</parent>
+    <child>mobility_system_link</child>
+  </joint>
+
+  <link name="mobility_system_link">
+    <pose relative_to="mobility_system_joint" />
+    <visual name="mobility_system_visual">
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_N20_Mecanum_Drive_Base.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="mobility_system_collision">
+      <pose relative_to="mobility_system_link">0 0 0.0175 0 0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.1125</radius>
+          <length>0.035</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+</sdf>
