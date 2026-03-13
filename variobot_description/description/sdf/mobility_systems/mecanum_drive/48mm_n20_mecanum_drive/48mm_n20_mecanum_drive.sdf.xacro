@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<sdf version="1.11" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<sdf version="1.12" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <joint name="mobility_system_joint" type="fixed">
     <pose relative_to="base_link" />
     <parent>base_link</parent>
