@@ -1,18 +1,19 @@
 # VarioBot
 
-VarioBot is a robotic platform for research and education, featuring various swappable mobility systems, two versatile robot arms, and advanced sensors.
+VarioBot is a modular robotic platform for research and education with swappable mobility systems, configurable sensors, and dual versatile robotic arms.
 
 This project is currently in the early stages of development and is not yet fully functional or ready for general use.
 Key features are still being implemented, and significant updates are expected.
 As such, the project's usability will be limited.
 Contributions, feedback, and suggestions are welcome to help improve this robot.
 
-## Planned / Implemented Features
+## Planned Features
 
 - Various swappable mobility systems
+- Swappable Lidars and Cameras
 - 2 versatile robot arms for interacting with different types of objects
-- Rotatable depth camera
-- SLAM with 2D lidar and depth camera
+- 180° rotatable camera
+- SLAM with 2D/3D lidar and/or depth camera
 - Outdoor and indoor navigation with Nav2
 - Object detection and tracking using camera
 
