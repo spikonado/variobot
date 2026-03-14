@@ -1,0 +1,421 @@
+<?xml version="1.0"?>
+<sdf version="1.12" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <joint name="mobility_system_joint" type="fixed">
+    <pose relative_to="base_link" />
+    <parent>base_link</parent>
+    <child>mobility_system_link</child>
+  </joint>
+
+  <link name="mobility_system_link">
+    <pose relative_to="mobility_system_joint" />
+    <visual name="mobility_system_visual">
+      <pose relative_to="mobility_system_link" degrees="true">0 0 0 0 0 -90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_N20_Mecanum_Drive_Base.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="mobility_system_collision">
+      <pose relative_to="mobility_system_link">0 0 0.0175 0 0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.1125</radius>
+          <length>0.035</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="front_left_motor_joint" type="fixed">
+    <pose relative_to="mobility_system_link" degrees="true">0.05 0.0759 0.009 0 0 -90</pose>
+    <parent>mobility_system_link</parent>
+    <child>front_left_motor_link</child>
+  </joint>
+
+  <link name="front_left_motor_link">
+    <pose relative_to="front_left_motor_joint" />
+    <visual name="front_left_motor_visual">
+      <pose relative_to="front_left_motor_link" />
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Motors/N20_Motor/N20_Motor_Assembly_Left.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="front_left_motor_collision">
+      <pose relative_to="front_left_motor_link" />
+      <geometry>
+        <box>
+          <size>0.024 0.0248 0.012</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="front_left_coupling_joint" type="revolute">
+    <pose relative_to="front_left_motor_link" degrees="true">0.02305 0 -0.001 0 0 0</pose>
+    <parent>front_left_motor_link</parent>
+    <child>front_left_coupling_link</child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>-inf</lower>
+        <upper>inf</upper>
+        <velocity>31.41</velocity>
+      </limit>
+    </axis>
+  </joint>
+
+  <link name="front_left_coupling_link">
+    <pose relative_to="front_left_coupling_joint" />
+    <visual name="front_left_coupling_visual">
+      <pose relative_to="front_left_coupling_link" degrees="true">0 0 0 0 0 90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_Mecanum_Wheel_N20_Motor_Coupling.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="front_left_coupling_collision">
+      <pose relative_to="front_left_coupling_link" degrees="true">-0.004 0 0 0 90 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.00507</radius>
+          <length>0.012</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="front_left_wheel_joint" type="fixed">
+    <pose relative_to="front_left_coupling_link">0.01915 0 0 0 0 0</pose>
+    <parent>front_left_coupling_link</parent>
+    <child>front_left_wheel_link</child>
+  </joint>
+
+  <link name="front_left_wheel_link">
+    <pose relative_to="front_left_wheel_joint" />
+    <visual name="front_left_wheel_visual">
+      <pose relative_to="front_left_wheel_link" degrees="true">0 0 0 0 0 -90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_Mecanum_Wheel_Left.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="front_left_wheel_collision">
+      <pose relative_to="front_left_coupling_link" degrees="true">0.01285 0 0 0 90 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.024</radius>
+          <length>0.025</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="front_right_motor_joint" type="fixed">
+    <pose relative_to="mobility_system_link" degrees="true">0.05 -0.0759 0.009 0 0 90</pose>
+    <parent>mobility_system_link</parent>
+    <child>front_right_motor_link</child>
+  </joint>
+
+  <link name="front_right_motor_link">
+    <pose relative_to="front_right_motor_joint" />
+    <visual name="front_right_motor_visual">
+      <pose relative_to="front_right_motor_link" degrees="true">0 0 0 0 0 180</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Motors/N20_Motor/N20_Motor_Assembly_Right.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="front_right_motor_collision">
+      <pose relative_to="front_right_motor_link" />
+      <geometry>
+        <box>
+          <size>0.024 0.0248 0.012</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="front_right_coupling_joint" type="revolute">
+    <pose relative_to="front_right_motor_link" degrees="true">0.02305 0 -0.001 0 0 0</pose>
+    <parent>front_right_motor_link</parent>
+    <child>front_right_coupling_link</child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>-inf</lower>
+        <upper>inf</upper>
+        <velocity>31.41</velocity>
+      </limit>
+    </axis>
+  </joint>
+
+  <link name="front_right_coupling_link">
+    <pose relative_to="front_right_coupling_joint" />
+    <visual name="front_right_coupling_visual">
+      <pose relative_to="front_right_coupling_link" degrees="true">0 0 0 0 0 90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_Mecanum_Wheel_N20_Motor_Coupling.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="front_right_coupling_collision">
+      <pose relative_to="front_right_coupling_link" degrees="true">-0.004 0 0 0 90 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.00507</radius>
+          <length>0.012</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="front_right_wheel_joint" type="fixed">
+    <pose relative_to="front_right_coupling_link">0.01915 0 0 0 0 0</pose>
+    <parent>front_right_coupling_link</parent>
+    <child>front_right_wheel_link</child>
+  </joint>
+
+  <link name="front_right_wheel_link">
+    <pose relative_to="front_right_wheel_joint" />
+    <visual name="front_right_wheel_visual">
+      <pose relative_to="front_right_wheel_link" degrees="true">0 0 0 0 0 -90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_Mecanum_Wheel_Right.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="front_right_wheel_collision">
+      <pose relative_to="front_right_coupling_link" degrees="true">0.01285 0 0 0 90 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.024</radius>
+          <length>0.025</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+
+  <joint name="rear_left_motor_joint" type="fixed">
+    <pose relative_to="mobility_system_link" degrees="true">-0.05 0.0759 0.009 0 0 -90</pose>
+    <parent>mobility_system_link</parent>
+    <child>rear_left_motor_link</child>
+  </joint>
+
+  <link name="rear_left_motor_link">
+    <pose relative_to="rear_left_motor_joint" />
+    <visual name="rear_left_motor_visual">
+      <pose relative_to="rear_left_motor_link" degrees="true">0 0 0 0 0 180</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Motors/N20_Motor/N20_Motor_Assembly_Right.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="rear_left_motor_collision">
+      <pose relative_to="rear_left_motor_link" />
+      <geometry>
+        <box>
+          <size>0.024 0.0248 0.012</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="rear_left_coupling_joint" type="revolute">
+    <pose relative_to="rear_left_motor_link" degrees="true">0.02305 0 -0.001 0 0 0</pose>
+    <parent>rear_left_motor_link</parent>
+    <child>rear_left_coupling_link</child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>-inf</lower>
+        <upper>inf</upper>
+        <velocity>31.41</velocity>
+      </limit>
+    </axis>
+  </joint>
+
+  <link name="rear_left_coupling_link">
+    <pose relative_to="rear_left_coupling_joint" />
+    <visual name="rear_left_coupling_visual">
+      <pose relative_to="rear_left_coupling_link" degrees="true">0 0 0 0 0 90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_Mecanum_Wheel_N20_Motor_Coupling.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="rear_left_coupling_collision">
+      <pose relative_to="rear_left_coupling_link" degrees="true">-0.004 0 0 0 90 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.00507</radius>
+          <length>0.012</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="rear_left_wheel_joint" type="fixed">
+    <pose relative_to="rear_left_coupling_link">0.01915 0 0 0 0 0</pose>
+    <parent>rear_left_coupling_link</parent>
+    <child>rear_left_wheel_link</child>
+  </joint>
+
+  <link name="rear_left_wheel_link">
+    <pose relative_to="rear_left_wheel_joint" />
+    <visual name="rear_left_wheel_visual">
+      <pose relative_to="rear_left_wheel_link" degrees="true">0 0 0 0 0 -90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_Mecanum_Wheel_Left.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="rear_left_wheel_collision">
+      <pose relative_to="rear_left_coupling_link" degrees="true">0.01285 0 0 0 90 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.024</radius>
+          <length>0.025</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="rear_right_motor_joint" type="fixed">
+    <pose relative_to="mobility_system_link" degrees="true">-0.05 -0.0759 0.009 0 0 90</pose>
+    <parent>mobility_system_link</parent>
+    <child>rear_right_motor_link</child>
+  </joint>
+
+  <link name="rear_right_motor_link">
+    <pose relative_to="rear_right_motor_joint" />
+    <visual name="rear_right_motor_visual">
+      <pose relative_to="rear_right_motor_link" />
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Motors/N20_Motor/N20_Motor_Assembly_Left.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="rear_right_motor_collision">
+      <pose relative_to="rear_right_motor_link" />
+      <geometry>
+        <box>
+          <size>0.024 0.0248 0.012</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="rear_right_coupling_joint" type="revolute">
+    <pose relative_to="rear_right_motor_link" degrees="true">0.02305 0 -0.001 0 0 0</pose>
+    <parent>rear_right_motor_link</parent>
+    <child>rear_right_coupling_link</child>
+    <axis>
+      <xyz>1 0 0</xyz>
+      <limit>
+        <lower>-inf</lower>
+        <upper>inf</upper>
+        <velocity>31.41</velocity>
+      </limit>
+    </axis>
+  </joint>
+
+  <link name="rear_right_coupling_link">
+    <pose relative_to="rear_right_coupling_joint" />
+    <visual name="rear_right_coupling_visual">
+      <pose relative_to="rear_right_coupling_link" degrees="true">0 0 0 0 0 90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_Mecanum_Wheel_N20_Motor_Coupling.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="rear_right_coupling_collision">
+      <pose relative_to="rear_right_coupling_link" degrees="true">-0.004 0 0 0 90 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.00507</radius>
+          <length>0.012</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="rear_right_wheel_joint" type="fixed">
+    <pose relative_to="rear_right_coupling_link">0.01915 0 0 0 0 0</pose>
+    <parent>rear_right_coupling_link</parent>
+    <child>rear_right_wheel_link</child>
+  </joint>
+
+  <link name="rear_right_wheel_link">
+    <pose relative_to="rear_right_wheel_joint" />
+    <visual name="rear_right_wheel_visual">
+      <pose relative_to="rear_right_wheel_link" degrees="true">0 0 0 0 0 -90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_Mecanum_Wheel_Right.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="rear_right_wheel_collision">
+      <pose relative_to="rear_right_coupling_link" degrees="true">0.01285 0 0 0 90 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.024</radius>
+          <length>0.025</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+</sdf>
