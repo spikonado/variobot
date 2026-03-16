@@ -1,0 +1,8 @@
+%YAML 1.2
+---
+launch:
+  - node:
+      pkg: 'controller_manager'
+      exec: 'spawner'
+      name: 'controllers_spawner'
+      args: 'joint_state_broadcaster mobility_system_controller'

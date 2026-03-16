@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<sdf version="1.12" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<sdf version="1.12" xmlns:xacro="http://www.ros.org/wiki/xacro"
+  xmlns:gz="http://gazebosim.org/schema">
   <joint name="mobility_system_joint" type="fixed">
     <pose relative_to="base_link" />
     <parent>base_link</parent>
@@ -64,7 +65,7 @@
     <parent>front_left_motor_link</parent>
     <child>front_left_coupling_link</child>
     <axis>
-      <xyz>1 0 0</xyz>
+      <xyz>-1 0 0</xyz>
       <limit>
         <lower>-inf</lower>
         <upper>inf</upper>
@@ -123,6 +124,15 @@
           <length>0.025</length>
         </cylinder>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1.0</mu>
+            <mu2>0.0</mu2>
+            <fdir1 gz:expressed_in="base_link">1 -1 0</fdir1>
+          </ode>
+        </friction>
+      </surface>
     </collision>
     <inertial auto="true" />
   </link>
@@ -220,6 +230,15 @@
           <length>0.025</length>
         </cylinder>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1.0</mu>
+            <mu2>0.0</mu2>
+            <fdir1 gz:expressed_in="base_link">1 1 0</fdir1>
+          </ode>
+        </friction>
+      </surface>
     </collision>
     <inertial auto="true" />
   </link>
@@ -259,7 +278,7 @@
     <parent>rear_left_motor_link</parent>
     <child>rear_left_coupling_link</child>
     <axis>
-      <xyz>1 0 0</xyz>
+      <xyz>-1 0 0</xyz>
       <limit>
         <lower>-inf</lower>
         <upper>inf</upper>
@@ -318,6 +337,15 @@
           <length>0.025</length>
         </cylinder>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1.0</mu>
+            <mu2>0.0</mu2>
+            <fdir1 gz:expressed_in="base_link">1 1 0</fdir1>
+          </ode>
+        </friction>
+      </surface>
     </collision>
     <inertial auto="true" />
   </link>
@@ -415,7 +443,19 @@
           <length>0.025</length>
         </cylinder>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>1.0</mu>
+            <mu2>0.0</mu2>
+            <fdir1 gz:expressed_in="base_link">1 -1 0</fdir1>
+          </ode>
+        </friction>
+      </surface>
     </collision>
     <inertial auto="true" />
   </link>
+
+  <xacro:include
+    filename="$(find variobot_control)/description/sdf/mobility_systems/mecanum_drive/48mm_n20_mecanum_drive/gz_ros2_control.sdf.xacro" />
 </sdf>

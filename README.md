@@ -24,5 +24,7 @@ See [`design`](design/) to know more about how the robot has been designed.
 - [`assembly`](./assembly): Contains resources for assembling the robot in real life. (Ex. CAD files)
 - [`assets`](./assets): Contains assets used in various places throughout the repository.
 - [`design`](./design): Contains various diagrams and explanations on how the robot has/will been designed.
-- [`installation`](./installation): Contains files and instructions for installing/building VarioBot's code.
+- [`installation`](./installation): Contains files and instructions for installing/building the robot's code.
+- [`variobot_control`](./vario_control): ROS 2 package that contains ros2_control configuration for the robot.
 - [`variobot_description`](./vario_description): ROS 2 package that contains description files for the robot.
+- [`variobot_gz`](./vario_gz): ROS 2 package that contains code relevant to using the robot in the Gazebo simulator.

@@ -1,0 +1,16 @@
+%YAML 1.2
+---
+launch:
+  - set_parameter:
+      name: 'use_sim_time'
+      value: 'true'
+
+  - arg:
+      name: 'config_file'
+      default: '$(find-pkg-share variobot_gz)/config/ros_gz_bridge_config.yaml'
+
+  - ros_gz_bridge:
+      bridge_name: 'ros_gz_bridge'
+      config_file: '$(var config_file)'
+      use_composition: 'false'
+      container_name: 'ros_gz_container'
