@@ -4,3 +4,8 @@ repositories:
     type: git
     url: https://github.com/Amronos/joint_state_publisher.git
     version: fix-inf-revolute-joints
+  # Fixes https://github.com/ros/xacro/issues/380
+  ros/xacro:
+    type: git
+    url: https://github.com/Amronos/xacro.git
+    version: fix-resolve-args

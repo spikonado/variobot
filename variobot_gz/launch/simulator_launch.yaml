@@ -1,0 +1,19 @@
+%YAML 1.2
+---
+launch:
+  - set_parameter:
+      name: 'use_sim_time'
+      value: 'true'
+
+  - arg:
+      name: 'world_file'
+      default: '$(find-pkg-share variobot_gz)/worlds/basic_world.sdf.xacro'
+
+  - gz_server:
+      world_sdf_string: '$(command "xacro $(var world_file)")'
+      use_composition: 'true'
+      create_own_container: 'true'
+      container_name: 'ros_gz_container'
+
+  - executable:
+      cmd: 'gz sim -g'

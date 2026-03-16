@@ -32,6 +32,15 @@
                 })
               ];
             });
+            # Fixes https://github.com/ros/xacro/issues/380
+            xacro = super.xacro.overrideAttrs (oldAttrs: {
+              patches = (oldAttrs.patches or [ ]) ++ [
+                (pkgs.fetchpatch {
+                  url = "https://patch-diff.githubusercontent.com/raw/ros/xacro/pull/380.patch";
+                  sha256 = "sha256-OciNmkcn4lUVCuLgUxepbyRZ1q05kZ3yId8hDZO6gHM=";
+                })
+              ];
+            });
           }
         );
 
@@ -68,13 +77,18 @@
               ament-cmake-core
               python-cmake-module
 
-              # Dependencies from package.xml
+              # Dependencies from package.xml files
               ament-cmake
-              ament-copyright
-              ament-flake8
-              ament-pep257
-              ament-xmllint
+              ament-lint-auto
+              ament-lint-common
+              controller-manager
+              gz-ros2-control
+              joint-state-broadcaster
+              mecanum-drive-controller
+              pid-controller
               robot-state-publisher
+              ros-gz-bridge
+              ros-gz-sim
               ros2launch
               rviz2
               sdformat-urdf
@@ -82,6 +96,7 @@
 
               # Tools
               joint-state-publisher-gui
+              ros2controlcli
               rqt-common-plugins
             ];
         };

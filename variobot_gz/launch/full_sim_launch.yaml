@@ -1,0 +1,22 @@
+%YAML 1.2
+---
+launch:
+  - set_parameter:
+      name: 'use_sim_time'
+      value: 'true'
+
+  - arg:
+      name: 'world_file'
+      default: '$(find-pkg-share variobot_gz)/worlds/basic_world.sdf.xacro'
+
+  - include:
+      file: '$(find-pkg-share variobot_gz)/launch/simulator_launch.yaml'
+      let:
+        - name: 'world_file'
+          value: '$(var world_file)'
+
+  - include:
+      file: '$(find-pkg-share variobot_gz)/launch/spawner_launch.yaml'
+
+  - include:
+      file: '$(find-pkg-share variobot_gz)/launch/ros_gz_bridge_launch.yaml'

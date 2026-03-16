@@ -15,7 +15,7 @@ launch:
       param:
         - name: 'robot_description'
           type: 'str'
-          value: "$(command 'xacro $(var description_file)')"
+          value: '$(command "xacro $(var description_file)")'
 
   - node:
       pkg: 'rviz2'

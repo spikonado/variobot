@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<sdf version="1.12" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <ros2_control name="GazeboSimSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+    <joint name="front_left_coupling_joint">
+      <command_interface name="velocity">
+        <param name="min">-31.41</param>
+        <param name="max">31.41</param>
+      </command_interface>
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="front_right_coupling_joint">
+      <command_interface name="velocity">
+        <param name="min">-31.41</param>
+        <param name="max">31.41</param>
+      </command_interface>
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="rear_left_coupling_joint">
+      <command_interface name="velocity">
+        <param name="min">-31.41</param>
+        <param name="max">31.41</param>
+      </command_interface>
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="rear_right_coupling_joint">
+      <command_interface name="velocity">
+        <param name="min">-31.41</param>
+        <param name="max">31.41</param>
+      </command_interface>
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+  </ros2_control>
+
+  <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+    <parameters>$(find variobot_control)/config/controller_manager_config.yaml</parameters>
+    <parameters>
+      $(find
+      variobot_control)/config/mobility_systems/mecanum_drive/48mm_n20_mecanum_drive/controllers_config.yaml
+    </parameters>
+  </plugin>
+
+  <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+    <odom_frame>variobot/odom</odom_frame>
+    <robot_base_frame>variobot/base_link</robot_base_frame>
+    <odom_publish_frequency>60</odom_publish_frequency>
+    <odom_covariance_topic>/gz/odom</odom_covariance_topic>
+    <dimensions>3</dimensions>
+  </plugin>
+</sdf>
