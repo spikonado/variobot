@@ -37,7 +37,7 @@
               patches = (oldAttrs.patches or [ ]) ++ [
                 (pkgs.fetchpatch {
                   url = "https://patch-diff.githubusercontent.com/raw/ros/xacro/pull/380.patch";
-                  sha256 = "sha256-OciNmkcn4lUVCuLgUxepbyRZ1q05kZ3yId8hDZO6gHM=";
+                  sha256 = "sha256-gIsdi7/SucXCXJrmmUfYHM+Dv3H3ZB0kVGqyDWRZOx8=";
                 })
               ];
             });
