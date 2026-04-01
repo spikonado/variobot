@@ -7,5 +7,5 @@ repositories:
   # Fixes https://github.com/ros/xacro/issues/380
   ros/xacro:
     type: git
-    url: https://github.com/Amronos/xacro.git
-    version: fix-resolve-args
+    url: https://github.com/ros/xacro.git
+    version: ros2
