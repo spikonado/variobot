@@ -5,4 +5,8 @@ launch:
       pkg: 'controller_manager'
       exec: 'spawner'
       name: 'controllers_spawner'
-      args: 'joint_state_broadcaster mobility_system_controller'
+      args: >
+        joint_state_broadcaster mobility_system_controller
+        --controller-ros-args '-r /mobility_system_controller/odometry:=/odom'
+        --controller-ros-args '-r /mobility_system_controller/reference:=/cmd_vel'
+        --controller-ros-args '-r /mobility_system_controller/tf_odometry:=/tf'
