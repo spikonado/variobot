@@ -9,7 +9,7 @@
 
 # Topic published by OdometryPublisher plugin, only for simulation debugging purposes
 - ros_topic_name: '/gz/odom'
-  gz_topic_name: '/model/omninado/odometry'
+  gz_topic_name: '/gz/odom'
   ros_type_name: 'nav_msgs/msg/Odometry'
   gz_type_name: 'gz.msgs.Odometry'
   direction: 'GZ_TO_ROS'
