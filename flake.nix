@@ -95,6 +95,7 @@
               xacro
 
               # Tools
+              libsForQt5.qt5.qtwayland
               joint-state-publisher-gui
               ros2controlcli
               rqt-common-plugins
@@ -105,7 +106,7 @@
         formatter = pkgs.nixfmt-tree;
         legacyPackages = rosPkgs;
 
-        devShells.default = pkgs.mkShell {
+        devShells.default = pkgs.mkShell.override { stdenv = pkgs.clangStdenv; } {
           name = "variobot-shell";
           packages = [
             colconWrapped
