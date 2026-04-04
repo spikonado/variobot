@@ -44,16 +44,6 @@
           }
         );
 
-        colconWrapped = pkgs.writeShellScriptBin "colcon" ''
-          # Exclude lint from colcon test due to ament_xmllint errors with nix
-          if [ "$1" = "test" ]; then
-            shift
-            exec ${pkgs.colcon}/bin/colcon test "$@" --ctest-args -LE lint
-          else
-            exec ${pkgs.colcon}/bin/colcon "$@"
-          fi
-        '';
-
         devTools = with pkgs; [
           commitlint
           gh
@@ -72,6 +62,7 @@
             [
               colcon
               ros-core
+              ament-lint-common
 
               # Work around https://github.com/lopsided98/nix-ros-overlay/pull/624
               ament-cmake-core
@@ -79,8 +70,6 @@
 
               # Dependencies from package.xml files
               ament-cmake
-              ament-lint-auto
-              ament-lint-common
               controller-manager
               gz-ros2-control
               joint-state-broadcaster
@@ -109,7 +98,6 @@
         devShells.default = pkgs.mkShell.override { stdenv = pkgs.clangStdenv; } {
           name = "variobot-shell";
           packages = [
-            colconWrapped
             devTools
             rosEnv
           ];
