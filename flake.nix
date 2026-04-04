@@ -2,19 +2,27 @@
   inputs = {
     nix-ros-overlay.url = "github:lopsided98/nix-ros-overlay/master";
     nixpkgs.follows = "nix-ros-overlay/nixpkgs"; # IMPORTANT!!!
+    esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
   };
   outputs =
     {
       self,
       nix-ros-overlay,
       nixpkgs,
+      esp-dev,
     }:
     nix-ros-overlay.inputs.flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = import nixpkgs {
           inherit system;
+
           overlays = [ nix-ros-overlay.overlays.default ];
+
+          # esptool dependency
+          config.permittedInsecurePackages = [
+            "python3.13-ecdsa-0.19.1"
+          ];
         };
 
         rosDistro = "kilted";
@@ -44,8 +52,11 @@
           }
         );
 
+        esp-pkgs = esp-dev.packages.${system};
+
         devTools = with pkgs; [
           commitlint
+          esp-pkgs.esp-idf-full
           gh
           git
           git-lfs

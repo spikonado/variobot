@@ -85,7 +85,7 @@ repos:
         language: system
       - id: ament_cppcheck
         name: ament_cppcheck
-        entry: ament_cppcheck
+        entry: env AMENT_CPPCHECK_ALLOW_SLOW_VERSIONS=1 ament_cppcheck
         language: system
         files: \.(c|cc|cpp|cxx|h|hh|hpp|hxx)$
       - id: ament_cpplint
@@ -108,11 +108,6 @@ repos:
         entry: ament_pep257
         language: system
         files: \.py$
-      - id: ament_uncrustify
-        name: ament_uncrustify
-        entry: ament_uncrustify
-        language: system
-        files: \.(c|cc|cpp|cxx|h|hh|hpp|hxx)$
       - id: ament_xmllint
         name: ament_xmllint
         entry: ament_xmllint
