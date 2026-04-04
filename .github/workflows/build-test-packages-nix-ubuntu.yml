@@ -16,21 +16,31 @@ jobs:
       - uses: actions/checkout@v6.0.2
 
       - uses: cachix/install-nix-action@v31.10.1
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
 
-      - name: Pre-build devShell
-        run: nix build --accept-flake-config --no-link .#devShells.$(nix eval --impure --raw --expr 'builtins.currentSystem').default
+      - uses: cachix/cachix-action@v14
+        with:
+          name: spikonado
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      - name: Build and Cache Shell Environment
+        run: |
+          nix develop --profile variobot-shell -c true
+          cachix push spikonado variobot-shell
 
       - name: Build Packages
-        shell: 'nix develop --accept-flake-config -c bash -e {0}'
+        shell: 'nix develop --profile variobot-shell -c bash -e {0}'
         run: colcon build --event-handlers=console_cohesion+ --symlink-install
 
       - name: Test Packages
-        shell: 'nix develop --accept-flake-config -c bash -e {0}'
+        shell: 'nix develop --profile variobot-shell -c bash -e {0}'
         run: |
           colcon test --event-handlers=console_direct+
           colcon test-result --all
           colcon test-result --verbose
 
       - name: Run fmt
-        shell: 'nix develop --accept-flake-config -c bash -e {0}'
+        shell: 'nix develop --profile variobot-shell -c bash -e {0}'
         run: nix fmt

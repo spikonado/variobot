@@ -113,14 +113,13 @@
       }
     );
   nixConfig = {
-    # Cache details from:
-    # 1. https://github.com/lopsided98/nix-ros-overlay#configure-binary-cache
-    # 2. https://github.com/wentasah/nix-ros-hydra#binary-cache
     extra-substituters = [
+      "https://spikonado.cachix.org"
       "https://ros.cachix.org"
       "https://attic.iid.ciirc.cvut.cz/ros"
     ];
     extra-trusted-public-keys = [
+      "spikonado.cachix.org-1:MwA4hqRN0+DdP7/UnTn0yvJgVu65S1S0QVnAnsguev4="
       "ros.cachix.org-1:dSyZxI8geDCJrwgvCOHDoAfOm5sV1wCPjBkKL+38Rvo="
       "ros:JR95vUYsShSqfA1VTYoFt1Nz6uXasm5QrcOsGry9f6Q="
     ];
