@@ -3,6 +3,9 @@ name: MCU CI
 on:
   merge_group:
   pull_request:
+    paths:
+      - .github/workflows/mcu-ci.yml
+      - variobot_mcu/**
   push:
     branches: [kilted]
   workflow_dispatch:
