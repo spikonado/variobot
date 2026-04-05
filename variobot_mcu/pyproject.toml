@@ -1,0 +1,11 @@
+[project]
+name = "variobot_mcu"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "catkin_pkg",
+  "colcon-common-extensions",
+  "lark"
+]

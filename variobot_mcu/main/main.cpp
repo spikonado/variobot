@@ -13,11 +13,18 @@
 // limitations under the License.
 
 #include "Arduino.h"
+#include "esp_log.h"  // NOLINT
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
-void setup() { Serial.begin(115200); }
+static const char * TAG = "hello";
 
-void loop()
+extern "C" void app_main(void)
 {
-  Serial.println("Hello world!");
-  delay(1000);
+  initArduino();
+
+  while (1) {
+    ESP_LOGI(TAG, "Hello world!");
+    vTaskDelay(pdMS_TO_TICKS(1000));
+  }
 }
