@@ -13,18 +13,35 @@
 // limitations under the License.
 
 #include "Arduino.h"
+#include "DRV89xx.h"
 #include "esp_log.h"  // NOLINT
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-static const char * TAG = "hello";
+static const char * TAG = "info";
+
+// DRV8912 Pin Definitions
+const int chipSelectPin = 10;
+const int sckPin = 12;
+const int misoPin = 13;
+const int mosiPin = 11;
+const int nFaultPin = 47;
+const int nSleepPin = 48;
+
+DRV89xx motor_driver(chipSelectPin, nFaultPin, nSleepPin, sckPin, misoPin, mosiPin);
 
 extern "C" void app_main(void)
 {
   initArduino();
 
+  motor_driver.configMotor(0, 1, 2, 0, 0);
+  motor_driver.begin();
+  motor_driver.readErrorStatus(true, false);
+  motor_driver.setMotor(0, 255, DRV89xx_FORWARD);
+  motor_driver.updateConfig();
+
   while (1) {
-    ESP_LOGI(TAG, "Hello world!");
+    motor_driver.readErrorStatus(true, false);
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }

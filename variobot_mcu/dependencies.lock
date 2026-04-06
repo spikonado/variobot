@@ -9,6 +9,14 @@ dependencies:
       registry_url: https://components.espressif.com
       type: service
     version: 1.0.3
+  drv89xx:
+    component_hash: 13a853cb40b1b14a2d58103e2b01a0ed4c42cdf45f2836a42604b9e0cf1384ed
+    dependencies: []
+    source:
+      git: https://github.com/Amronos/DRV89xx.git
+      path: .
+      type: git
+    version: 132617660027072fa45d433a55b42205a283c166
   espressif/arduino-esp32:
     component_hash: c1ed9d8ca2790678814eaa09bde8ee95c35810167bf397e93cbb1ead36799bb7
     dependencies:
@@ -470,9 +478,10 @@ dependencies:
       type: git
     version: 6c5e5f86fd25df6e2fc2457887bc2cb6b41d04f7
 direct_dependencies:
+- drv89xx
 - espressif/arduino-esp32
 - idf
 - micro_ros_espidf_component
-manifest_hash: c81764a4e80224ff2c007c57d8f65f76a7f8d65e1d31e6b157db267a41fb20de
+manifest_hash: 7a606862cdd9a2ee671a750561258be570a0a584568f1bea8c403c8277f5827b
 target: esp32s3
 version: 2.0.0
