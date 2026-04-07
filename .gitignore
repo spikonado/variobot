@@ -19,4 +19,5 @@ sdkconfig.old
 .envrc
 
 .cache
+.vscode
 compile_commands.json

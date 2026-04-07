@@ -51,4 +51,12 @@
         };
       }
     );
+  nixConfig = {
+    extra-substituters = [
+      "https://spikonado.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "spikonado.cachix.org-1:MwA4hqRN0+DdP7/UnTn0yvJgVu65S1S0QVnAnsguev4="
+    ];
+  };
 }
