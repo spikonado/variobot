@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c29bdd93d880049ae5bd1ca487fd78e1c7e6d3f84d71d2d0c666473bd75ab235
-size 476
+## Credits
+
+- [**DF Robot 48mm Mecanum Wheels**](./Mobility_Systems/Mecanum_Drive/48mm_N20_Mecanum_Drive/48mm_N20_Mecanum_Drive_Parts.FCStd) - [Model](https://grabcad.com/library/df-robot-48mm-mecanum-wheel-left-1) by [Seth Schaffer](https://grabcad.com/seth.schaffer-1) on [GrabCAD](https://grabcad.com).
+- [**N20 Motor Clamps**](./Motors/N20_Motor/N20_Motor_Parts.FCStd) - Inspired from [models by makerspet](https://github.com/makerspet/store/tree/main/N20-CLAMPS/v1.0.0).
