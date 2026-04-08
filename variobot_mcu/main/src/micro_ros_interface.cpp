@@ -19,6 +19,7 @@
 #include <esp_timer.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
+#include <rmw_microros/rmw_microros.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/time.h>
@@ -113,13 +114,21 @@ static void micro_ros_task(void * arg)
   rcl_allocator_t allocator = rcl_get_default_allocator();
   rclc_support_t support;
 
-// Transport handled based on Kconfig.
-#if defined(CONFIG_MICRO_ROS_ESP_NETIF_WLAN) || defined(CONFIG_MICRO_ROS_ESP_NETIF_ENET)
-  ESP_ERROR_CHECK(uros_network_interface_initialize());
+  rcl_init_options_t init_options = rcl_get_zero_initialized_init_options();
+  RCCHECK(rcl_init_options_init(&init_options, allocator));
+
+#ifdef CONFIG_MICRO_ROS_ESP_XRCE_DDS_MIDDLEWARE
+  rmw_init_options_t * rmw_options = rcl_init_options_get_rmw_init_options(&init_options);
+
+  // RCCHECK(rmw_uros_discover_agent(rmw_options));
+
+  // Static agent IP and port can be used instead of auto-discovery
+  RCCHECK(rmw_uros_options_set_udp_address(
+    CONFIG_MICRO_ROS_AGENT_IP, CONFIG_MICRO_ROS_AGENT_PORT, rmw_options));
 #endif
 
-  // Initialize Support
-  RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
+  // Create init_options
+  RCCHECK(rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator));
 
   // Initialize Node
   rcl_node_t node;
@@ -154,9 +163,9 @@ static void micro_ros_task(void * arg)
     &command_subscriber, &node, ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, JointState),
     "joint_commands"));
 
-  // Initialize Timer (1000Hz)
+  // Initialize Timer (200 Hz)
   rcl_timer_t timer;
-  RCCHECK(rclc_timer_init_default2(&timer, &support, RCL_MS_TO_NS(1), timer_callback, true));
+  RCCHECK(rclc_timer_init_default2(&timer, &support, RCL_MS_TO_NS(5), timer_callback, true));
 
   // Initialize Executor
   rclc_executor_t executor;
@@ -171,7 +180,7 @@ static void micro_ros_task(void * arg)
     usleep(10000);
   }
 
-  // Free resources (though we spin forever)
+  // Free resources
   sensor_msgs__msg__JointState__fini(&state_msg);
   sensor_msgs__msg__JointState__fini(&command_msg);
   RCCHECK(rcl_subscription_fini(&command_subscriber, &node));
@@ -184,6 +193,10 @@ static void micro_ros_task(void * arg)
 
 void micro_ros_init()
 {
+#if defined(CONFIG_MICRO_ROS_ESP_NETIF_WLAN) || defined(CONFIG_MICRO_ROS_ESP_NETIF_ENET)
+  ESP_ERROR_CHECK(uros_network_interface_initialize());
+#endif
+
   xTaskCreate(
     micro_ros_task, "uros_task", CONFIG_MICRO_ROS_APP_STACK, NULL, CONFIG_MICRO_ROS_APP_TASK_PRIO,
     NULL);

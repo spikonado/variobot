@@ -32,8 +32,6 @@ static constexpr int PIN_NFAULT = 47;
 static constexpr int PIN_NSLEEP = 48;
 
 // ── Half-bridge and PWM channel assignments per motor ───────────────────────
-// Each motor uses two half-bridges and one PWM channel on the DRV8912.
-// Adjust these to match your PCB wiring.
 struct MotorHardwareConfig
 {
   uint8_t drv_motor_id;
@@ -42,7 +40,6 @@ struct MotorHardwareConfig
   uint8_t pwm_channel;
   uint8_t reverse_delay;
 };
-
 static constexpr MotorHardwareConfig MOTOR_HW[NUM_MOTORS] = {
   {0, 1, 2, 0, 0},  // FRONT_LEFT
   {1, 3, 4, 1, 0},  // FRONT_RIGHT
