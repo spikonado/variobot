@@ -17,9 +17,9 @@
 #include <freertos/task.h>
 
 #include "Arduino.h"
-#include "variobot_mcu/encoder.h"
-#include "variobot_mcu/micro_ros_interface.h"
-#include "variobot_mcu/motor_control.h"
+#include "variobot_mcu/encoder.hpp"
+#include "variobot_mcu/micro_ros_interface.hpp"
+#include "variobot_mcu/motor_control.hpp"
 
 static const char * TAG = "variobot_mcu";
 

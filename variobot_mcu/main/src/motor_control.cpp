@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "variobot_mcu/motor_control.h"
+#include "variobot_mcu/motor_control.hpp"
 
 #include <esp_log.h>
 
@@ -23,7 +23,7 @@
 
 static const char * TAG = "motor_control";
 
-// ── DRV8912 SPI pin definitions ─────────────────────────────────────────────
+// DRV8912 SPI pin definitions
 static constexpr int PIN_CS = 10;
 static constexpr int PIN_SCK = 12;
 static constexpr int PIN_MISO = 13;
@@ -31,7 +31,7 @@ static constexpr int PIN_MOSI = 11;
 static constexpr int PIN_NFAULT = 47;
 static constexpr int PIN_NSLEEP = 48;
 
-// ── Half-bridge and PWM channel assignments per motor ───────────────────────
+// Half-bridge and PWM channel assignments per motor
 struct MotorHardwareConfig
 {
   uint8_t drv_motor_id;
@@ -62,24 +62,20 @@ void motor_control_init()
   ESP_LOGI(TAG, "DRV8912 initialized with %d motors", NUM_MOTORS);
 }
 
-void motor_control_set_velocity(MotorId motor, double rad_s)
+void motor_control_set_pwm(MotorId motor, int pwm)
 {
-  // Clamp to maximum velocity.
-  const double clamped = std::clamp(rad_s, -MAX_WHEEL_VELOCITY, MAX_WHEEL_VELOCITY);
-
-  // Map |velocity| linearly to 0-255 PWM duty.
-  const uint8_t speed = static_cast<uint8_t>((std::abs(clamped) / MAX_WHEEL_VELOCITY) * 255.0);
+  const int clamped_pwm = std::clamp(pwm, -255, 255);
 
   uint8_t direction;
-  if (speed == 0) {
+  if (clamped_pwm == 0) {
     direction = DRV89xx_BRAKE;
-  } else if (clamped > 0.0) {
+  } else if (clamped_pwm > 0.0) {
     direction = DRV89xx_FORWARD;
   } else {
     direction = DRV89xx_REVERSE;
   }
 
-  driver.setMotor(MOTOR_HW[motor].drv_motor_id, speed, direction);
+  driver.setMotor(MOTOR_HW[motor].drv_motor_id, clamped_pwm, direction);
 }
 
 void motor_control_update() { driver.updateConfig(); }

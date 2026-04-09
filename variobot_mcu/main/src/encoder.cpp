@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "variobot_mcu/encoder.h"
+#include "variobot_mcu/encoder.hpp"
 
 #include <driver/gpio.h>
 #include <esp_attr.h>
@@ -21,8 +21,6 @@
 
 #include <cmath>
 #include <cstdint>
-
-// ── Encoder Configuration ───────────────────────────────────────────────────
 
 struct EncoderPins
 {
@@ -37,16 +35,12 @@ static constexpr EncoderPins ENCODER_HW[NUM_MOTORS] = {
   {GPIO_NUM_33, GPIO_NUM_34}  // REAR_RIGHT
 };
 
-static constexpr uint16_t TICKS_PER_REV = 360;
-
-// ── Internal State ─────────────────────────────────────────────────────────
+static constexpr uint16_t TICKS_PER_REV = 690;
 
 static volatile int32_t encoder_ticks[NUM_MOTORS] = {0, 0, 0, 0};
 static int32_t last_ticks[NUM_MOTORS] = {0, 0, 0, 0};
 static int64_t last_velocity_update_us[NUM_MOTORS] = {0, 0, 0, 0};
-static double current_velocity_rad_s[NUM_MOTORS] = {0.0, 0.0, 0.0, 0.0};
-
-// ── Interrupt Service Routine ──────────────────────────────────────────────
+static double current_velocity[NUM_MOTORS] = {0.0, 0.0, 0.0, 0.0};
 
 static void IRAM_ATTR encoder_isr(void * arg)
 {
@@ -57,8 +51,6 @@ static void IRAM_ATTR encoder_isr(void * arg)
     encoder_ticks[motor] = encoder_ticks[motor] - 1;
   }
 }
-
-// ── Implementation ──────────────────────────────────────────────────────────
 
 void encoder_init()
 {
@@ -95,29 +87,31 @@ void encoder_init()
   }
 }
 
-double encoder_get_position_rad(MotorId motor)
+double encoder_get_position(MotorId motor)
 {
+  if (motor == FRONT_LEFT) {
+    printf("%ld\n", encoder_ticks[motor]);
+  }
   return static_cast<double>(encoder_ticks[motor]) * ((2.0 * M_PI) / TICKS_PER_REV);
 }
 
-double encoder_get_velocity_rad_s(MotorId motor)
+double encoder_get_velocity(MotorId motor)
 {
   int64_t now_us = esp_timer_get_time();
   int64_t dt_us = now_us - last_velocity_update_us[motor];
 
-  if (dt_us == 0) return current_velocity_rad_s[motor];
+  if (std::fabs(dt_us) < 1e-6) return current_velocity[motor];
 
   int32_t current_ticks = encoder_ticks[motor];
   int32_t delta_ticks = current_ticks - last_ticks[motor];
 
-  current_velocity_rad_s[motor] =
-    (static_cast<double>(delta_ticks) * ((2.0 * M_PI) / TICKS_PER_REV)) /
-    (static_cast<double>(dt_us) / 1000000.0);
+  current_velocity[motor] = (static_cast<double>(delta_ticks) * ((2.0 * M_PI) / TICKS_PER_REV)) /
+                            (static_cast<double>(dt_us) / 1000000.0);
 
   last_ticks[motor] = current_ticks;
   last_velocity_update_us[motor] = now_us;
 
-  return current_velocity_rad_s[motor];
+  return current_velocity[motor];
 }
 
 void encoder_reset(MotorId motor)
@@ -125,5 +119,5 @@ void encoder_reset(MotorId motor)
   encoder_ticks[motor] = 0;
   last_ticks[motor] = 0;
   last_velocity_update_us[motor] = esp_timer_get_time();
-  current_velocity_rad_s[motor] = 0.0;
+  current_velocity[motor] = 0.0;
 }

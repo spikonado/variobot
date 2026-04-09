@@ -12,11 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef VARIOBOT_MCU__MICRO_ROS_INTERFACE_H_
-#define VARIOBOT_MCU__MICRO_ROS_INTERFACE_H_
+#ifndef VARIOBOT_MCU__MICRO_ROS_INTERFACE_HPP_
+#define VARIOBOT_MCU__MICRO_ROS_INTERFACE_HPP_
 
-/// Initialize micro-ROS node, transport, and all communications.
-/// This will start a dedicated FreeRTOS task for micro-ROS operations.
+/**
+ * @brief
+ * Initialize micro-ROS node, transport, and all communications.
+ * This will start a dedicated FreeRTOS task for micro-ROS operations.
+ */
 void micro_ros_init();
 
-#endif  // VARIOBOT_MCU__MICRO_ROS_INTERFACE_H_
+#endif  // VARIOBOT_MCU__MICRO_ROS_INTERFACE_HPP_

@@ -12,16 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef VARIOBOT_MCU__MOTOR_CONTROL_H_
-#define VARIOBOT_MCU__MOTOR_CONTROL_H_
+#ifndef VARIOBOT_MCU__MOTOR_CONTROL_HPP_
+#define VARIOBOT_MCU__MOTOR_CONTROL_HPP_
 
 #include <cstdint>
 
 inline constexpr int NUM_MOTORS = 4;
 
-inline constexpr double MAX_WHEEL_VELOCITY = 31.41;
-
-/// Motor index mapping: matches the order used in JointState messages.
 enum MotorId : uint8_t
 {
   FRONT_LEFT = 0,
@@ -30,15 +27,21 @@ enum MotorId : uint8_t
   REAR_RIGHT = 3,
 };
 
-/// Initialize the DRV8912 motor driver and configure all 4 motors.
+/**
+ * @brief Initialize the DRV8912 motor driver and configure motors
+ */
 void motor_control_init();
 
-/// Set the target velocity for a single motor.
-/// @param motor  Which motor to set.
-/// @param rad_s  Desired velocity in rad/s (positive = forward, negative = reverse).
-void motor_control_set_velocity(MotorId motor, double rad_s);
+/**
+ * @brief Set the target pwm for a single motor
+ * @param [in] motor Which motor to set
+ * @param [in] pwm Desired pwm from -255 to 255 (positive = anti-clockwise, negative = clockwise)
+ */
+void motor_control_set_pwm(MotorId motor, int pwm);
 
-/// Push any pending motor configuration changes to the DRV8912 over SPI.
+/**
+ * @brief Push any pending motor configuration changes to the DRV8912 over SPI
+ */
 void motor_control_update();
 
-#endif  // VARIOBOT_MCU__MOTOR_CONTROL_H_
+#endif  // VARIOBOT_MCU__MOTOR_CONTROL_HPP_
