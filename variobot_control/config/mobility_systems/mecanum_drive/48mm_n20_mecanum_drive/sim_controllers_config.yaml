@@ -1,0 +1,25 @@
+%YAML 1.2
+---
+front_left_coupling_joint_pid_controller:
+  ros__parameters:
+    gains:
+      front_left_coupling_joint:
+        feedforward_gain: 1.0
+
+front_right_coupling_joint_pid_controller:
+  ros__parameters:
+    gains:
+      front_right_coupling_joint:
+        feedforward_gain: 1.0
+
+rear_left_coupling_joint_pid_controller:
+  ros__parameters:
+    gains:
+      rear_left_coupling_joint:
+        feedforward_gain: 1.0
+
+rear_right_coupling_joint_pid_controller:
+  ros__parameters:
+    gains:
+      rear_right_coupling_joint:
+        feedforward_gain: 1.0

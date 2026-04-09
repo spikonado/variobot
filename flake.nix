@@ -87,6 +87,7 @@
               # Tools
               libsForQt5.qt5.qtwayland
               joint-state-publisher-gui
+              plotjuggler-ros
               ros2controlcli
               rqt-common-plugins
             ];
