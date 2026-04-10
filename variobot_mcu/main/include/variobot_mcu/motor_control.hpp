@@ -17,7 +17,7 @@
 
 #include <cstdint>
 
-inline constexpr int NUM_MOTORS = 4;
+inline constexpr uint8_t NUM_MOTORS = 4;
 
 enum MotorId : uint8_t
 {
@@ -37,7 +37,7 @@ void motor_control_init();
  * @param [in] motor Which motor to set
  * @param [in] pwm Desired pwm from -255 to 255 (positive = anti-clockwise, negative = clockwise)
  */
-void motor_control_set_pwm(MotorId motor, int pwm);
+void motor_control_set_pwm(MotorId motor, int16_t pwm);
 
 /**
  * @brief Push any pending motor configuration changes to the DRV8912 over SPI

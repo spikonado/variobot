@@ -36,10 +36,11 @@ static constexpr EncoderPins ENCODER_HW[NUM_MOTORS] = {
 };
 
 static constexpr uint16_t TICKS_PER_REV = 690;
+static constexpr uint16_t TICKS_PER_REV_2 = 2070;
 
 static volatile int32_t encoder_ticks[NUM_MOTORS] = {0, 0, 0, 0};
-static int32_t last_ticks[NUM_MOTORS] = {0, 0, 0, 0};
-static int64_t last_velocity_update_us[NUM_MOTORS] = {0, 0, 0, 0};
+static double previous_pos[NUM_MOTORS] = {0.0, 0.0, 0.0, 0.0};
+static double previous_time[NUM_MOTORS] = {0.0, 0.0, 0.0, 0.0};
 static double current_velocity[NUM_MOTORS] = {0.0, 0.0, 0.0, 0.0};
 
 static void IRAM_ATTR encoder_isr(void * arg)
@@ -63,7 +64,7 @@ void encoder_init()
   // Configure Phase A pins with rising edge interrupt
   io_conf.intr_type = GPIO_INTR_POSEDGE;
   uint64_t phase_a_mask = 0;
-  for (int i = 0; i < NUM_MOTORS; i++) {
+  for (uint8_t i = 0; i < NUM_MOTORS; i++) {
     phase_a_mask |= (1ULL << ENCODER_HW[i].pin_a);
   }
   io_conf.pin_bit_mask = phase_a_mask;
@@ -72,7 +73,7 @@ void encoder_init()
   // Configure Phase B pins without interrupt
   io_conf.intr_type = GPIO_INTR_DISABLE;
   uint64_t phase_b_mask = 0;
-  for (int i = 0; i < NUM_MOTORS; i++) {
+  for (uint8_t i = 0; i < NUM_MOTORS; i++) {
     phase_b_mask |= (1ULL << ENCODER_HW[i].pin_b);
   }
   io_conf.pin_bit_mask = phase_b_mask;
@@ -80,36 +81,34 @@ void encoder_init()
 
   gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
 
-  for (int i = 0; i < NUM_MOTORS; i++) {
+  for (uint8_t i = 0; i < NUM_MOTORS; i++) {
     gpio_isr_handler_add(
       ENCODER_HW[i].pin_a, encoder_isr, reinterpret_cast<void *>(static_cast<intptr_t>(i)));
-    last_velocity_update_us[i] = esp_timer_get_time();
+    previous_time[i] = static_cast<double>(esp_timer_get_time()) / 1000000.0;
   }
 }
 
 double encoder_get_position(MotorId motor)
 {
-  if (motor == FRONT_LEFT) {
-    printf("%ld\n", encoder_ticks[motor]);
+  if (motor == REAR_RIGHT) {
+    return static_cast<double>(encoder_ticks[motor]) * ((2.0 * M_PI) / TICKS_PER_REV_2);
   }
   return static_cast<double>(encoder_ticks[motor]) * ((2.0 * M_PI) / TICKS_PER_REV);
 }
 
 double encoder_get_velocity(MotorId motor)
 {
-  int64_t now_us = esp_timer_get_time();
-  int64_t dt_us = now_us - last_velocity_update_us[motor];
+  double current_time = static_cast<double>(esp_timer_get_time()) / 1000000.0;
+  double dt = current_time - previous_time[motor];
 
-  if (std::fabs(dt_us) < 1e-6) return current_velocity[motor];
+  if (std::fabs(dt) < 1e-6) return current_velocity[motor];
 
-  int32_t current_ticks = encoder_ticks[motor];
-  int32_t delta_ticks = current_ticks - last_ticks[motor];
+  double current_pos = encoder_get_position(motor);
 
-  current_velocity[motor] = (static_cast<double>(delta_ticks) * ((2.0 * M_PI) / TICKS_PER_REV)) /
-                            (static_cast<double>(dt_us) / 1000000.0);
+  current_velocity[motor] = (current_pos - previous_pos[motor]) / dt;
 
-  last_ticks[motor] = current_ticks;
-  last_velocity_update_us[motor] = now_us;
+  previous_pos[motor] = current_pos;
+  previous_time[motor] = current_time;
 
   return current_velocity[motor];
 }
@@ -117,7 +116,6 @@ double encoder_get_velocity(MotorId motor)
 void encoder_reset(MotorId motor)
 {
   encoder_ticks[motor] = 0;
-  last_ticks[motor] = 0;
-  last_velocity_update_us[motor] = esp_timer_get_time();
-  current_velocity[motor] = 0.0;
+  previous_pos[motor] = 0.0;
+  previous_time[motor] = esp_timer_get_time();
 }

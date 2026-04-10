@@ -62,9 +62,10 @@ void motor_control_init()
   ESP_LOGI(TAG, "DRV8912 initialized with %d motors", NUM_MOTORS);
 }
 
-void motor_control_set_pwm(MotorId motor, int pwm)
+void motor_control_set_pwm(MotorId motor, int16_t pwm)
 {
-  const int clamped_pwm = std::clamp(pwm, -255, 255);
+  const int16_t clamped_pwm =
+    std::clamp(pwm, static_cast<int16_t>(-255), static_cast<int16_t>(255));
 
   uint8_t direction;
   if (clamped_pwm == 0) {

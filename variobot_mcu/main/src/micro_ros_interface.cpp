@@ -16,14 +16,14 @@
 
 #include <esp_log.h>
 #include <esp_system.h>
-#include <esp_timer.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
-#include <rmw_microros/rmw_microros.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/time.h>
 #include <unistd.h>
+
+#include <cstdint>
 
 #include "rclc/executor.h"
 #include "rclc/init.h"
@@ -32,6 +32,8 @@
 #include "rclc/subscription.h"
 #include "rclc/timer.h"
 #include "rclc/types.h"
+#include "rmw_microros/init_options.h"
+#include "rmw_microros/time_sync.h"
 #include "rosidl_runtime_c/primitives_sequence_functions.h"
 #include "rosidl_runtime_c/string_functions.h"
 #include "sensor_msgs/msg/joint_state.h"
@@ -71,10 +73,11 @@ void joint_command_callback(const void * msgin)
   const sensor_msgs__msg__JointState * msg = (const sensor_msgs__msg__JointState *)msgin;
 
   for (size_t i = 0; i < msg->name.size; i++) {
-    for (int j = 0; j < NUM_MOTORS; j++) {
+    for (uint8_t j = 0; j < NUM_MOTORS; j++) {
       if (strcmp(msg->name.data[i].data, joint_names[j]) == 0) {
         if (msg->velocity.size > i) {
-          motor_control_set_pwm(static_cast<MotorId>(j), msg->velocity.data[i]);
+          motor_control_set_pwm(
+            static_cast<MotorId>(j), static_cast<int16_t>(msg->velocity.data[i]));
         }
         break;
       }
@@ -85,15 +88,14 @@ void joint_command_callback(const void * msgin)
 
 void joint_state_timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 {
-  (void)last_call_time;
+  RCLC_UNUSED(last_call_time);
   if (timer != NULL) {
-    // Update header timestamp using gettimeofday (available in ESP-IDF/Newlib)
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    joint_state_msg.header.stamp.sec = tv.tv_sec;
-    joint_state_msg.header.stamp.nanosec = tv.tv_usec * 1000;
+    rmw_uros_sync_session(1000);
+    joint_state_msg.header.stamp.sec = static_cast<int32_t>(rmw_uros_epoch_millis() / 1000);
+    joint_state_msg.header.stamp.nanosec =
+      static_cast<uint32_t>((rmw_uros_epoch_millis() % 1000) * 1000000);
 
-    for (int i = 0; i < NUM_MOTORS; i++) {
+    for (uint8_t i = 0; i < NUM_MOTORS; i++) {
       joint_state_msg.position.data[i] = encoder_get_position(static_cast<MotorId>(i));
       joint_state_msg.velocity.data[i] = encoder_get_velocity(static_cast<MotorId>(i));
     }
@@ -133,7 +135,7 @@ static void micro_ros_task(void * arg)
   rosidl_runtime_c__double__Sequence__init(&joint_state_msg.position, NUM_MOTORS);
   rosidl_runtime_c__double__Sequence__init(&joint_state_msg.velocity, NUM_MOTORS);
 
-  for (int i = 0; i < NUM_MOTORS; i++) {
+  for (uint8_t i = 0; i < NUM_MOTORS; i++) {
     rosidl_runtime_c__String__assign(&joint_state_msg.name.data[i], joint_names[i]);
   }
   joint_state_msg.position.size = NUM_MOTORS;
@@ -142,7 +144,7 @@ static void micro_ros_task(void * arg)
   sensor_msgs__msg__JointState__init(&joint_command_msg);
   rosidl_runtime_c__String__Sequence__init(&joint_command_msg.name, NUM_MOTORS);
   rosidl_runtime_c__double__Sequence__init(&joint_command_msg.velocity, NUM_MOTORS);
-  for (int i = 0; i < NUM_MOTORS; i++) {
+  for (uint8_t i = 0; i < NUM_MOTORS; i++) {
     rosidl_runtime_c__String__init(&joint_command_msg.name.data[i]);
   }
 
