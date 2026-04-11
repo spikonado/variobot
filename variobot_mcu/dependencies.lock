@@ -458,7 +458,7 @@ dependencies:
   idf:
     source:
       type: idf
-    version: 5.5.3
+    version: 5.5.4
   joltwallet/littlefs:
     component_hash: dcea25bcef2de023f089f5f01e8d8c46ad1b8ffef75861ad5ffb4098555839df
     dependencies:
@@ -470,18 +470,18 @@ dependencies:
       type: service
     version: 1.20.4
   micro_ros_espidf_component:
-    component_hash: 66a48a1828ffb6c5b4d82cbb286b452142a32df022fe68c665c913350d7f1014
+    component_hash: 1279269ec55621a226f80be17e714816aeef0d3bf26a2ff8dbafdd2be96dcb6d
     dependencies: []
     source:
       git: https://github.com/Amronos/micro_ros_espidf_component.git
       path: .
       type: git
-    version: 6c5e5f86fd25df6e2fc2457887bc2cb6b41d04f7
+    version: b2e542a5a1b173c636505aaad03244f2618ba8d1
 direct_dependencies:
 - drv89xx
 - espressif/arduino-esp32
 - idf
 - micro_ros_espidf_component
-manifest_hash: 7a606862cdd9a2ee671a750561258be570a0a584568f1bea8c403c8277f5827b
+manifest_hash: 8a9213147d3559b8f35d89a1e5d83fc0f8c4e3ae7508243e815213eb0c2627f9
 target: esp32s3
 version: 2.0.0

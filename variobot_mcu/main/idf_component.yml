@@ -1,6 +1,6 @@
 dependencies:
   idf:
-    version: '5.5.3'
+    version: '5.5.4'
   espressif/arduino-esp32: '^3.3.7'
   drv89xx:
     git: https://github.com/Amronos/DRV89xx.git

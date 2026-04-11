@@ -39,8 +39,8 @@
               gcc
               uv
               (esp-idf-full.override {
-                rev = "v5.5.3";
-                sha256 = "sha256-+vtBTVI/EDIBJMpg3i3L6K9AyUxk+kmpI+QAJy2q9Dk=";
+                rev = "v5.5.4";
+                sha256 = "sha256-rItbBrwItkfJf8tKImAQsiXDR95sr0LqaM51gDZG/nI=";
               })
             ];
 
