@@ -47,9 +47,9 @@ static void IRAM_ATTR encoder_isr(void * arg)
 {
   int motor = static_cast<int>(reinterpret_cast<intptr_t>(arg));
   if (gpio_get_level(ENCODER_HW[motor].pin_b)) {
-    encoder_ticks[motor] = encoder_ticks[motor] + 1;
-  } else {
     encoder_ticks[motor] = encoder_ticks[motor] - 1;
+  } else {
+    encoder_ticks[motor] = encoder_ticks[motor] + 1;
   }
 }
 
