@@ -12,19 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// cppcheck-suppress-file normalCheckLevelMaxBranches
 #include "variobot_mcu/micro_ros_interface.hpp"
 
 #include <esp_log.h>
 #include <esp_system.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
+#include <rcl/timer.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/time.h>
 #include <unistd.h>
 
+#include <cmath>
 #include <cstdint>
 
+#include "micro_ros_utilities/type_utilities.h"
 #include "rclc/executor.h"
 #include "rclc/init.h"
 #include "rclc/node.h"
@@ -59,14 +63,64 @@ static const char * TAG = "uros_interface";
     }                                                                                     \
   }
 
-static rcl_publisher_t joint_state_publisher;
-static rcl_subscription_t joint_command_subscriber;
-static sensor_msgs__msg__JointState joint_state_msg;
-static sensor_msgs__msg__JointState joint_command_msg;
+rcl_publisher_t joint_state_publisher;
+rcl_subscription_t joint_command_subscriber;
+sensor_msgs__msg__JointState joint_state_msg;
+sensor_msgs__msg__JointState joint_command_msg;
+uint8_t joint_command_buffer[512];
 
-static const char * joint_names[NUM_MOTORS] = {
+const char * joint_names[NUM_MOTORS] = {
   "front_left_coupling_joint", "front_right_coupling_joint", "rear_left_coupling_joint",
   "rear_right_coupling_joint"};
+
+bool init_joint_state_message(sensor_msgs__msg__JointState * msg)
+{
+  if (!sensor_msgs__msg__JointState__init(msg)) {
+    return false;
+  }
+
+  if (!rosidl_runtime_c__String__Sequence__init(&msg->name, NUM_MOTORS)) {
+    return false;
+  }
+
+  if (!rosidl_runtime_c__double__Sequence__init(&msg->position, NUM_MOTORS)) {
+    return false;
+  }
+
+  if (!rosidl_runtime_c__double__Sequence__init(&msg->velocity, NUM_MOTORS)) {
+    return false;
+  }
+
+  for (uint8_t i = 0; i < NUM_MOTORS; i++) {
+    if (!rosidl_runtime_c__String__assign(&msg->name.data[i], joint_names[i])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+micro_ros_utilities_memory_conf_t make_joint_command_memory_conf()
+{
+  micro_ros_utilities_memory_conf_t conf{};
+  conf.max_string_capacity = 48;
+  conf.max_ros2_type_sequence_capacity = NUM_MOTORS;
+  conf.max_basic_type_sequence_capacity = NUM_MOTORS;
+  return conf;
+}
+
+bool init_joint_command_message(sensor_msgs__msg__JointState * msg)
+{
+  if (!sensor_msgs__msg__JointState__init(msg)) {
+    return false;
+  }
+
+  const micro_ros_utilities_memory_conf_t conf = make_joint_command_memory_conf();
+
+  return micro_ros_utilities_create_static_message_memory(
+    ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, JointState), msg, conf, joint_command_buffer,
+    sizeof(joint_command_buffer));
+}
 
 void joint_command_callback(const void * msgin)
 {
@@ -76,8 +130,9 @@ void joint_command_callback(const void * msgin)
     for (uint8_t j = 0; j < NUM_MOTORS; j++) {
       if (strcmp(msg->name.data[i].data, joint_names[j]) == 0) {
         if (msg->velocity.size > i) {
-          motor_control_set_pwm(
-            static_cast<MotorId>(j), static_cast<int16_t>(msg->velocity.data[i]));
+          const double velocity = msg->velocity.data[i];
+          const int16_t pwm = std::isfinite(velocity) ? static_cast<int16_t>(velocity) : 0;
+          motor_control_set_pwm(static_cast<MotorId>(j), pwm);
         }
         break;
       }
@@ -104,7 +159,7 @@ void joint_state_timer_callback(rcl_timer_t * timer, int64_t last_call_time)
   }
 }
 
-static void micro_ros_task(void * arg)
+void micro_ros_task(void * arg)
 {
   rcl_allocator_t allocator = rcl_get_default_allocator();
   rclc_support_t support;
@@ -126,26 +181,17 @@ static void micro_ros_task(void * arg)
   RCCHECK(rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator));
 
   // Initialize Node
-  rcl_node_t node;
+  rcl_node_t node = rcl_get_zero_initialized_node();
   RCCHECK(rclc_node_init_default(&node, "variobot_mcu", "", &support));
 
-  // Initialize Messages (Pre-allocate sequences)
-  sensor_msgs__msg__JointState__init(&joint_state_msg);
-  rosidl_runtime_c__String__Sequence__init(&joint_state_msg.name, NUM_MOTORS);
-  rosidl_runtime_c__double__Sequence__init(&joint_state_msg.position, NUM_MOTORS);
-  rosidl_runtime_c__double__Sequence__init(&joint_state_msg.velocity, NUM_MOTORS);
-
-  for (uint8_t i = 0; i < NUM_MOTORS; i++) {
-    rosidl_runtime_c__String__assign(&joint_state_msg.name.data[i], joint_names[i]);
+  // Initialize Messages
+  if (!init_joint_state_message(&joint_state_msg)) {
+    ESP_LOGE(TAG, "Failed to initialize joint_state_msg");
+    vTaskDelete(NULL);
   }
-  joint_state_msg.position.size = NUM_MOTORS;
-  joint_state_msg.velocity.size = NUM_MOTORS;
-
-  sensor_msgs__msg__JointState__init(&joint_command_msg);
-  rosidl_runtime_c__String__Sequence__init(&joint_command_msg.name, NUM_MOTORS);
-  rosidl_runtime_c__double__Sequence__init(&joint_command_msg.velocity, NUM_MOTORS);
-  for (uint8_t i = 0; i < NUM_MOTORS; i++) {
-    rosidl_runtime_c__String__init(&joint_command_msg.name.data[i]);
+  if (!init_joint_command_message(&joint_command_msg)) {
+    ESP_LOGE(TAG, "Failed to initialize joint_command_msg");
+    vTaskDelete(NULL);
   }
 
   // Initialize Publisher
@@ -159,13 +205,15 @@ static void micro_ros_task(void * arg)
     "/variobot_mcu/joint_commands"));
 
   // Initialize Timer (200 Hz)
-  rcl_timer_t joint_state_timer;
+  rcl_timer_t joint_state_timer = rcl_get_zero_initialized_timer();
   RCCHECK(rclc_timer_init_default2(
     &joint_state_timer, &support, RCL_MS_TO_NS(5), joint_state_timer_callback, true));
 
   // Initialize Executor
-  rclc_executor_t executor;
+  rclc_executor_t executor = rclc_executor_get_zero_initialized_executor();
   RCCHECK(rclc_executor_init(&executor, &support.context, 2, &allocator));
+
+  // Add timers and subscribers to the executor
   RCCHECK(rclc_executor_add_subscription(
     &executor, &joint_command_subscriber, &joint_command_msg, &joint_command_callback,
     ON_NEW_DATA));

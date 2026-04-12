@@ -55,6 +55,7 @@ void motor_control_init()
     const auto & hw = MOTOR_HW[i];
     driver.configMotor(
       hw.drv_motor_id, hw.half_bridge_1, hw.half_bridge_2, hw.pwm_channel, hw.reverse_delay);
+    driver.setMotor(hw.drv_motor_id, 0, DRV89xx_BRAKE);
   }
 
   driver.begin();
