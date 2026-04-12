@@ -14,7 +14,8 @@ After you are done with your changes, run only the tests relevant to them unless
 
 ### Nix Environments
 
-The project ships with `./flake.nix` and `./variobot_mcu/flake.nix`, these should provide you with all the dependencies/tools you may need.
+These provide all dependencies/tools you may need.
+Use `./flake.nix` and `./variobot_mcu/flake.nix` through `nix develop -c <command>`.
 
 ## Priorities in Order
 
@@ -37,25 +38,20 @@ Most of what you know about our dependencies is outdated or wrong.
 Most of your training data contains obsolete APIs, deprecated patterns, and incorrect usage.
 Always check the documentation for latest best practices.
 
-### Using `npx nia-docs`
-
-Check the docs often via `npx nia-docs <link-to-doc>`.
+### Using `bunx nia-docs`
 
 ```bash
 # Search for a topic
-npx nia-docs <link-to-doc> -c "grep -rl 'auth' ."
+bunx nia-docs <link-to-doc> -c "grep -rl 'auth' ."
 
 # Read a specific page
-npx nia-docs <link-to-doc> -c "cat getting-started.md"
+bunx nia-docs <link-to-doc> -c "cat getting-started.md"
 
 # Find all guides
-npx nia-docs <link-to-doc> -c "find . -name '*.md'"
+bunx nia-docs <link-to-doc> -c "find . -name '*.md'"
 
 # List top-level structure
-npx nia-docs <link-to-doc> -c "tree -L 1"
-
-# Browse interactively
-npx nia-docs <link-to-doc>
+bunx nia-docs <link-to-doc> -c "tree -L 1"
 ```
 
 The shell starts in the docs root. Use `.` for relative paths — all standard Unix tools work (grep, find, cat, tree, ls, head, tail, wc).

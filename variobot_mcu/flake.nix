@@ -36,7 +36,14 @@
             with pkgs;
             with esp-pkgs;
             [
+              bun
+              commitlint
               gcc
+              gh
+              git
+              git-lfs
+              prek
+              prettier
               uv
               (esp-idf-full.override {
                 rev = "v5.5.4";

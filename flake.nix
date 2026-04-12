@@ -45,6 +45,7 @@
         );
 
         devTools = with pkgs; [
+          bun
           commitlint
           gcc
           gh
