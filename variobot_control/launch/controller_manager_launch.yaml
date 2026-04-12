@@ -1,0 +1,10 @@
+%YAML 1.2
+---
+launch:
+  - node:
+      pkg: 'controller_manager'
+      exec: 'ros2_control_node'
+      name: 'controller_manager'
+      param:
+        - from: '$(find-pkg-share variobot_control)/config/controller_manager_config.yaml'
+        - from: '$(find-pkg-share variobot_control)/config/mobility_systems/mecanum_drive/48mm_n20_mecanum_drive/controllers_config.yaml'

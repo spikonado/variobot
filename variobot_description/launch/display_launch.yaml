@@ -5,6 +5,9 @@ launch:
       name: 'description_file'
       default: '$(find-pkg-share variobot_description)/description/sdf/model.sdf.xacro'
   - arg:
+      name: 'hardware_type'
+      default: 'gz_sim'
+  - arg:
       name: 'rviz_config_file'
       default: '$(find-pkg-share variobot_description)/config/rviz_config.rviz'
 
@@ -15,7 +18,7 @@ launch:
       param:
         - name: 'robot_description'
           type: 'str'
-          value: '$(command "xacro $(var description_file)")'
+          value: '$(command "xacro $(var description_file) hardware_type:=$(var hardware_type)")'
 
   - node:
       pkg: 'rviz2'

@@ -75,6 +75,7 @@
               controller-manager
               gz-ros2-control
               joint-state-broadcaster
+              joint-state-topic-hardware-interface
               mecanum-drive-controller
               pid-controller
               robot-state-publisher
@@ -84,6 +85,14 @@
               rviz2
               sdformat-urdf
               xacro
+
+              # micro_ros_agent dependencies
+              fmt_9
+              micro-ros-msgs
+              rcutils
+              rmw
+              rmw-dds-common
+              rmw-fastrtps-shared-cpp
 
               # Tools
               libsForQt5.qt5.qtwayland

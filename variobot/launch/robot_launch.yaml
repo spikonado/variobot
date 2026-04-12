@@ -1,0 +1,5 @@
+%YAML 1.2
+---
+launch:
+  - include:
+      file: '$(find-pkg-share variobot)/launch/spawner_launch.yaml'

@@ -151,12 +151,12 @@ static void micro_ros_task(void * arg)
   // Initialize Publisher
   RCCHECK(rclc_publisher_init_default(
     &joint_state_publisher, &node, ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, JointState),
-    "joint_states"));
+    "/variobot_mcu/joint_states"));
 
   // Initialize Subscriber
   RCCHECK(rclc_subscription_init_default(
     &joint_command_subscriber, &node, ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, JointState),
-    "joint_commands"));
+    "/variobot_mcu/joint_commands"));
 
   // Initialize Timer (200 Hz)
   rcl_timer_t joint_state_timer;

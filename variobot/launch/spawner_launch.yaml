@@ -1,16 +1,12 @@
 %YAML 1.2
 ---
 launch:
-  - set_parameter:
-      name: 'use_sim_time'
-      value: 'true'
-
   - arg:
       name: 'description_file'
       default: '$(find-pkg-share variobot_description)/description/sdf/model.sdf.xacro'
   - arg:
       name: 'rviz_config_file'
-      default: '$(find-pkg-share variobot_gz)/config/rviz_config.rviz'
+      default: '$(find-pkg-share variobot)/config/rviz_config.rviz'
 
   - include:
       file: '$(find-pkg-share variobot_description)/launch/display_launch.yaml'
@@ -18,24 +14,18 @@ launch:
         - name: 'description_file'
           value: '$(var description_file)'
         - name: 'hardware_type'
-          value: 'gz_sim'
+          value: 'real'
         - name: 'rviz_config_file'
           value: '$(var rviz_config_file)'
 
   - include:
       file: '$(find-pkg-share variobot_control)/launch/controllers_launch.yaml'
 
+  - include:
+      file: '$(find-pkg-share variobot_control)/launch/controller_manager_launch.yaml'
+
   - node:
-      pkg: 'ros_gz_sim'
-      exec: 'create'
-      name: 'spawn_robot'
-      param:
-        - name: 'name'
-          type: 'str'
-          value: 'variobot'
-        - name: 'topic'
-          type: 'str'
-          value: '/robot_description'
-        - name: 'z'
-          type: 'float'
-          value: 1.0
+      pkg: 'micro_ros_agent'
+      exec: 'micro_ros_agent'
+      name: 'micro_ros_agent'
+      args: 'udp4 --port 8888'
