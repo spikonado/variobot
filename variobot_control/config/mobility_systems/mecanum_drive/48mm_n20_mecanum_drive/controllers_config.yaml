@@ -20,7 +20,7 @@ front_left_coupling_joint_pid_controller:
     reference_and_state_interfaces: ['velocity']
     gains:
       front_left_coupling_joint:
-        p: 0.0
+        p: 1.0
         i: 0.0
         d: 0.0
 
@@ -31,7 +31,7 @@ front_right_coupling_joint_pid_controller:
     reference_and_state_interfaces: ['velocity']
     gains:
       front_right_coupling_joint:
-        p: 0.0
+        p: 1.0
         i: 0.0
         d: 0.0
 
@@ -42,7 +42,7 @@ rear_left_coupling_joint_pid_controller:
     reference_and_state_interfaces: ['velocity']
     gains:
       rear_left_coupling_joint:
-        p: 0.0
+        p: 1.0
         i: 0.0
         d: 0.0
 
@@ -53,7 +53,7 @@ rear_right_coupling_joint_pid_controller:
     reference_and_state_interfaces: ['velocity']
     gains:
       rear_right_coupling_joint:
-        p: 0.0
+        p: 1.0
         i: 0.0
         d: 0.0
 
