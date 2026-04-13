@@ -8,11 +8,11 @@
 		":prConcurrentLimit10"
 	],
 	"packageRules": [
-    	{
-      		"matchDepTypes": ["action", "uses-with"],
-      		"automerge": true
-    	}
-  	],
+		{
+			"matchDepTypes": ["action", "uses-with"],
+			"automerge": true
+		}
+	],
 	"lockFileMaintenance": {
 		"automerge": true,
 		"enabled": true
