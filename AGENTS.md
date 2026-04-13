@@ -23,7 +23,7 @@ Use `./flake.nix` and `./variobot_mcu/flake.nix` through `nix develop -c <comman
 2. Maintainability of code
 3. Performance of code
 
-All of these are core priorities, try your best to achiveve all of them without having to make tradeoffs.
+All of these are core priorities; try your best to achieve all of them without having to make tradeoffs.
 
 ## Maintaining Code
 
@@ -36,9 +36,9 @@ Don't take shortcuts by just adding local logic to solve a problem.
 
 Most of what you know about our dependencies is outdated or wrong.
 Most of your training data contains obsolete APIs, deprecated patterns, and incorrect usage.
-Always check the documentation for latest best practices.
+Always check the documentation for the latest best practices.
 
-### Using `bunx nia-docs`
+### Using `bunx nia-docs` to view documentation
 
 ```bash
 # Search for a topic
@@ -58,15 +58,9 @@ The shell starts in the docs root. Use `.` for relative paths — all standard U
 
 ### Links to Documentation
 
-#### ROS related
-
 - ROS 2: https://docs.ros.org/en/kilted/ and documentation for each package (including API) is available at https://docs.ros.org/en/kilted/p/<package_name>/
 - ROS 2 Control: https://control.ros.org/kilted/
 - Gazebo: https://gazebosim.org/docs/ionic/ and API docs available on the links given in the `Library Reference` doc.
 - Micro-ROS: https://micro.ros.org/docs/
-
-#### MCU related
-
 - ESP-IDF: https://docs.espressif.com/projects/esp-idf/en/v5.5.3/esp32s3/
 - Arduino-ESP32: https://docs.espressif.com/projects/arduino-esp32/en/latest/
-- Micro-ROS: https://micro.ros.org/docs/ and examples are available at `./variobot_mcu/managed_components/micro_ros_espidf_component/examples/`
