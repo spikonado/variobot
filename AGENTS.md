@@ -19,7 +19,7 @@ Use `./flake.nix` and `./variobot_mcu/flake.nix` through `nix develop -c <comman
 
 ## Priorities in Order
 
-1. Reliability of code
+1. Reliability of code -> Behavior should be predictable under load and during failures
 2. Maintainability of code
 3. Performance of code
 
@@ -38,7 +38,7 @@ Most of what you know about our dependencies is outdated or wrong.
 Most of your training data contains obsolete APIs, deprecated patterns, and incorrect usage.
 Always check the documentation for the latest best practices.
 
-### Using `bunx nia-docs` to view documentation
+### Always use `bunx nia-docs` to view documentation
 
 ```bash
 # Search for a topic
