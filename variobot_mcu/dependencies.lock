@@ -18,7 +18,7 @@ dependencies:
       type: git
     version: 132617660027072fa45d433a55b42205a283c166
   espressif/arduino-esp32:
-    component_hash: c1ed9d8ca2790678814eaa09bde8ee95c35810167bf397e93cbb1ead36799bb7
+    component_hash: 40614111c1f42f83585134d7105761fb95dd6cee38c0a66e1b572fe6212ffaa7
     dependencies:
     - name: chmorgan/esp-libhelix-mp3
       registry_url: https://components.espressif.com
@@ -151,7 +151,7 @@ dependencies:
     - esp32p4
     - esp32s2
     - esp32s3
-    version: 3.3.7
+    version: 3.3.8
   espressif/cbor:
     component_hash: dad9ca860963e930366510a10b422b3125a4fb27b979712ed65efcbcd742de50
     dependencies:
@@ -372,7 +372,7 @@ dependencies:
       type: service
     version: 1.2.0
   espressif/esp_secure_cert_mgr:
-    component_hash: 2587797e68395edb67f30a7f9a7ce6a529492fa5fa6468592e912bc7ea34dbae
+    component_hash: 40a986c1f45d91eb6d339ca51dcab90c4ecce2a6622c268edaaa05887852d464
     dependencies:
     - name: idf
       require: private
@@ -380,7 +380,7 @@ dependencies:
     source:
       registry_url: https://components.espressif.com
       type: service
-    version: 2.9.1
+    version: 2.9.2
   espressif/jsmn:
     component_hash: d80350c41bbaa827c98a25b6072df00884e72f54885996fab4a4f0aebce6b6c3
     dependencies:
@@ -470,13 +470,13 @@ dependencies:
       type: service
     version: 1.20.4
   micro_ros_espidf_component:
-    component_hash: 1279269ec55621a226f80be17e714816aeef0d3bf26a2ff8dbafdd2be96dcb6d
+    component_hash: c8d8a0ff688c47a61cab2ef9b0d457c7808dbb4bd797cd1f83a59369ead0ecd2
     dependencies: []
     source:
       git: https://github.com/Amronos/micro_ros_espidf_component.git
       path: .
       type: git
-    version: b2e542a5a1b173c636505aaad03244f2618ba8d1
+    version: e747951f7b6f72958a1eed3295336bb46900cb9d
 direct_dependencies:
 - drv89xx
 - espressif/arduino-esp32
