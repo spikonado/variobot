@@ -46,6 +46,7 @@
 
         devTools = with pkgs; [
           bun
+          colcon
           commitlint
           gcc
           gh
@@ -57,12 +58,10 @@
 
         # Define the ROS environment with all necessary dependencies
         rosEnv = rosPkgs.buildEnv {
-          wrapPrograms = false;
           paths =
             with pkgs;
             with rosPkgs;
             [
-              colcon
               ros-core
               ament-lint-common
 
@@ -113,6 +112,8 @@
             devTools
             rosEnv
           ];
+
+          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.mesa ];
 
           shellHook = ''
             # Setup ROS 2 shell completion. Doing it in direnv is useless.
