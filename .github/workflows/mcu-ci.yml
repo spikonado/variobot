@@ -1,8 +1,11 @@
-name: Prek
+name: MCU CI
 
 on:
   merge_group:
   pull_request:
+    paths:
+      - .github/workflows/mcu-ci.yml
+      - variobot_mcu/**
   push:
     branches: [kilted]
   workflow_dispatch:
@@ -10,8 +13,12 @@ on:
 permissions:
   contents: read
 
+defaults:
+  run:
+    working-directory: variobot_mcu
+
 jobs:
-  run_prek:
+  mcu_ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6.0.2
@@ -28,9 +35,10 @@ jobs:
 
       - name: Build and Cache Shell Environment
         run: |
-          nix develop --profile variobot-shell -c true
-          cachix push spikonado variobot-shell
+          nix develop --profile variobot-mcu-shell -c true
+          cachix push spikonado variobot-mcu-shell
 
-      - name: Run prek
-        shell: 'nix develop --profile variobot-shell -c bash -e {0}'
-        run: prek run -a
+      - name: Build Firmware
+        shell: 'nix develop --profile variobot-mcu-shell -c bash -e {0}'
+        run: |
+          idf.py build

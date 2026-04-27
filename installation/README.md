@@ -47,6 +47,7 @@ Install Nix: https://nixos.org/nix/download.html
 
 ```bash
 git clone https://github.com/spikonado/variobot.git ~/variobot_ws/src/variobot
+git clone https://github.com/micro-ROS/micro-ROS-Agent.git ~/variobot_ws/src/micro-ROS/micro-ROS-Agent
 ```
 
 #### 2. Activate the environment and build the packages

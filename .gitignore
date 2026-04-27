@@ -6,8 +6,18 @@ log
 # Drawio
 *.bkp
 
+# ESP-IDF
+managed_components
+sdkconfig
+sdkconfig.old
+
 # Freecad
 *.FCBak
 
+# Nix
+.direnv
+.envrc
+
 .cache
+.vscode
 compile_commands.json

@@ -9,3 +9,8 @@ repositories:
     type: git
     url: https://github.com/ros/xacro.git
     version: ros2
+  # Not published on ROS 2 APT repos
+  micro-ROS/micro-ROS-agent:
+    type: git
+    url: https://github.com/micro-ROS/micro-ROS-Agent.git
+    version: kilted

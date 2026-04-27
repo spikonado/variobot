@@ -4,7 +4,14 @@
 		"config:recommended",
 		"schedule:earlyMondays",
 		":dependencyDashboard",
-		":semanticCommitTypeAll(build)"
+		":semanticCommitTypeAll(build)",
+		":prConcurrentLimit10"
+	],
+	"packageRules": [
+		{
+			"matchDepTypes": ["action", "uses-with"],
+			"automerge": true
+		}
 	],
 	"lockFileMaintenance": {
 		"automerge": true,

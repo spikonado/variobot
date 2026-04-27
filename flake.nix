@@ -45,7 +45,10 @@
         );
 
         devTools = with pkgs; [
+          bun
+          colcon
           commitlint
+          gcc
           gh
           git
           git-lfs
@@ -55,12 +58,10 @@
 
         # Define the ROS environment with all necessary dependencies
         rosEnv = rosPkgs.buildEnv {
-          wrapPrograms = false;
           paths =
             with pkgs;
             with rosPkgs;
             [
-              colcon
               ros-core
               ament-lint-common
 
@@ -73,6 +74,7 @@
               controller-manager
               gz-ros2-control
               joint-state-broadcaster
+              joint-state-topic-hardware-interface
               mecanum-drive-controller
               pid-controller
               robot-state-publisher
@@ -82,6 +84,14 @@
               rviz2
               sdformat-urdf
               xacro
+
+              # micro_ros_agent dependencies
+              fmt_9
+              micro-ros-msgs
+              rcutils
+              rmw
+              rmw-dds-common
+              rmw-fastrtps-shared-cpp
 
               # Tools
               libsForQt5.qt5.qtwayland
@@ -102,6 +112,8 @@
             devTools
             rosEnv
           ];
+
+          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.mesa ];
 
           shellHook = ''
             # Setup ROS 2 shell completion. Doing it in direnv is useless.

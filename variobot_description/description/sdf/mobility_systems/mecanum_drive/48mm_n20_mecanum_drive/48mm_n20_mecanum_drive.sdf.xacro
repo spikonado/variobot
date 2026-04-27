@@ -457,5 +457,5 @@
   </link>
 
   <xacro:include
-    filename="$(find variobot_control)/description/sdf/mobility_systems/mecanum_drive/48mm_n20_mecanum_drive/gz_ros2_control.sdf.xacro" />
+    filename="$(find variobot_control)/description/sdf/mobility_systems/mecanum_drive/48mm_n20_mecanum_drive/ros2_control.sdf.xacro" />
 </sdf>
