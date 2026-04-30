@@ -2,8 +2,8 @@ dependencies:
   idf:
     version: '5.5.4'
   espressif/arduino-esp32: '^3.3.8'
-  drv89xx:
-    git: https://github.com/Amronos/DRV89xx.git
+  drv8912:
+    git: https://github.com/Amronos/DRV8912.git
     version: esp-idf
   micro_ros_espidf_component:
     git: https://github.com/Amronos/micro_ros_espidf_component.git

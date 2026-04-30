@@ -44,4 +44,9 @@ void motor_control_set_pwm(MotorId motor, int16_t pwm);
  */
 void motor_control_update();
 
+/**
+ * @brief Read and print current DRV8912 fault and status registers
+ */
+void motor_control_log_status();
+
 #endif  // VARIOBOT_MCU__MOTOR_CONTROL_HPP_
