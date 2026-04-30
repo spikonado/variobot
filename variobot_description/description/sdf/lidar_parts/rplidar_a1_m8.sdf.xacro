@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<sdf version="1.12" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <link name="lidar_holder_link">
+    <pose relative_to="lidar_holder_joint" />
+    <visual name="lidar_holder_visual">
+      <pose relative_to="lidar_holder_link" degrees="true">0 0 0 0 0 -90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Lidar_Parts/RPLidar_A1_M8_Holder.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="lidar_holder_collision">
+      <pose relative_to="lidar_holder_link">0 0 0.0015 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.075 0.075 0.003</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="lidar_joint" type="fixed">
+    <pose relative_to="lidar_holder_link" degrees="true">0 0 0.003 0 0 0</pose>
+    <parent>lidar_holder_link</parent>
+    <child>lidar_link</child>
+  </joint>
+
+  <link name="lidar_link">
+    <pose relative_to="lidar_joint" />
+    <visual name="lidar_visual">
+      <pose relative_to="lidar_link" degrees="true">-0.06947 0.0133 0 90 0 180</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Lidar_Parts/RPLidar_A1_M8.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="lidar_collision">
+      <pose relative_to="lidar_link">0 0 0.0275 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.09674 0.07028 0.055</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="lidar_sensor_joint" type="fixed">
+    <pose relative_to="lidar_link" degrees="true">0 0 0.04325 0 0 0</pose>
+    <parent>lidar_link</parent>
+    <child>lidar_sensor_link</child>
+  </joint>
+
+  <link name="lidar_sensor_link">
+    <pose relative_to="lidar_sensor_joint" />
+    <sensor name="lidar" type="gpu_lidar">
+      <pose relative_to="lidar_sensor_link" />
+      <frame_id>lidar_sensor_link</frame_id>
+      <always_on>true</always_on>
+      <update_rate>10</update_rate>
+      <visualize>true</visualize>
+      <topic>/scan</topic>
+      <enable_metrics>true</enable_metrics>
+      <lidar>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1.0</resolution>
+            <!--<samples>8000</samples>-->
+            <min_angle>0.0</min_angle>
+            <max_angle>${2 * pi}</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <resolution>0.01</resolution>
+          <min>0.3</min>
+          <max>12</max>
+        </range>
+      </lidar>
+    </sensor>
+  </link>
+</sdf>

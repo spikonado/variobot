@@ -456,6 +456,14 @@
     <inertial auto="true" />
   </link>
 
+  <joint name="lidar_base_joint" type="fixed">
+    <pose relative_to="mobility_system_link" degrees="true">0 0 0.035 0 0 0</pose>
+    <parent>mobility_system_link</parent>
+    <child>lidar_base_link</child>
+  </joint>
+
+  <xacro:include filename="$(find variobot_description)/description/sdf/lidar_parts/lidar.sdf.xacro" />
+
   <xacro:include
     filename="$(find variobot_control)/description/sdf/mobility_systems/mecanum_drive/48mm_n20_mecanum_drive/ros2_control.sdf.xacro" />
 </sdf>
