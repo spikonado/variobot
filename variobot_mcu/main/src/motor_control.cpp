@@ -16,9 +16,6 @@
 
 #include <esp_log.h>
 
-#include <algorithm>
-#include <cmath>
-
 #include "DRV89xx.h"
 
 static const char * TAG = "motor_control";
@@ -55,7 +52,7 @@ void motor_control_init()
     const auto & hw = MOTOR_HW[i];
     driver.configMotor(
       hw.drv_motor_id, hw.half_bridge_1, hw.half_bridge_2, hw.pwm_channel, hw.reverse_delay);
-    driver.setMotor(hw.drv_motor_id, 0, DRV89xx_BRAKE);
+    driver.setMotor(hw.drv_motor_id, 0);
   }
 
   driver.begin();
@@ -65,19 +62,9 @@ void motor_control_init()
 
 void motor_control_set_pwm(MotorId motor, int16_t pwm)
 {
-  const int16_t clamped_pwm =
-    std::clamp(pwm, static_cast<int16_t>(-255), static_cast<int16_t>(255));
-
-  uint8_t direction;
-  if (clamped_pwm == 0) {
-    direction = DRV89xx_BRAKE;
-  } else if (clamped_pwm > 0.0) {
-    direction = DRV89xx_FORWARD;
-  } else {
-    direction = DRV89xx_REVERSE;
-  }
-
-  driver.setMotor(MOTOR_HW[motor].drv_motor_id, clamped_pwm, direction);
+  driver.setMotor(MOTOR_HW[motor].drv_motor_id, pwm);
 }
 
 void motor_control_update() { driver.updateConfig(); }
+
+void motor_control_log_status() { driver.logStatus(); }
