@@ -7,10 +7,22 @@ Key features are still being implemented, and significant updates are expected.
 As such, the project's usability will be limited.
 Contributions, feedback, and suggestions are welcome to help improve this robot.
 
+## Graphics
+
+![Render 1](./assets/render_1.png)
+![Render 2](./assets/render_2.png)
+
+## Implemented Features
+
+- Swappable Mobility Systems:
+  - Mecanum Drive with 48mm Wheels and N20 DC Motors
+- Swappable Lidars:
+  - RPLidar A1 M8
+
 ## Planned Features
 
-- Various swappable mobility systems
-- Swappable Lidars and Cameras
+- More swappable mobility systems
+- More swappable Lidars and Cameras
 - 2 versatile robot arms for interacting with different types of objects
 - 180° rotatable camera
 - SLAM with 2D/3D lidar and/or depth camera
