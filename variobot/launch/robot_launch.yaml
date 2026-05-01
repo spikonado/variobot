@@ -3,3 +3,6 @@
 launch:
   - include:
       file: '$(find-pkg-share variobot)/launch/spawner_launch.yaml'
+
+  - include:
+      file: '$(find-pkg-share variobot_navigation)/launch/nav_launch.yaml'

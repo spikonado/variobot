@@ -76,13 +76,27 @@
               joint-state-broadcaster
               joint-state-topic-hardware-interface
               mecanum-drive-controller
+              nav2-behaviors
+              nav2-bt-navigator
+              nav2-collision-monitor
+              nav2-controller
+              nav2-lifecycle-manager
+              nav2-mppi-controller
+              nav2-navfn-planner
+              nav2-planner
+              nav2-rviz-plugins
+              nav2-smoother
+              nav2-velocity-smoother
+              nav2-waypoint-follower
               pid-controller
+              rclcpp-components
               robot-state-publisher
               ros-gz-bridge
               ros-gz-sim
               ros2launch
               rviz2
               sdformat-urdf
+              slam-toolbox
               xacro
 
               # micro_ros_agent dependencies
