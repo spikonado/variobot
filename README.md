@@ -7,10 +7,8 @@ Key features are still being implemented, and significant updates are expected.
 As such, the project's usability will be limited.
 Contributions, feedback, and suggestions are welcome to help improve this robot.
 
-## Graphics
-
-![Render 1](./assets/render_1.png)
-![Render 2](./assets/render_2.png)
+> [!NOTE]
+> Go to [`assembly`](./assembly) if you want to build or simulate the robot for yourself.
 
 ## Implemented Features
 
@@ -29,6 +27,12 @@ Contributions, feedback, and suggestions are welcome to help improve this robot.
 - Outdoor and indoor navigation with Nav2
 - Object detection and tracking using camera
 
+## Graphics
+
+![Render 1](./assets/render_1.png)
+![Render 2](./assets/render_2.png)
+![Autonomous Navigation](./assets/auto-nav.gif)
+
 See [`design`](design/) to know more about how the robot has been designed.
 
 ## Directory Structure
@@ -40,3 +44,5 @@ See [`design`](design/) to know more about how the robot has been designed.
 - [`variobot_control`](./vario_control): ROS 2 package that contains ros2_control configuration for the robot.
 - [`variobot_description`](./vario_description): ROS 2 package that contains description files for the robot.
 - [`variobot_gz`](./vario_gz): ROS 2 package that contains code relevant to using the robot in the Gazebo simulator.
+- [`variobot_mcu`](./vario_mcu): Contains MCU firmware for the robot written in ESP-IDF.
+- [`variobot_navigation`](./vario_navigation): ROS 2 package that contains code relevant to the robot's autonomous navigation.

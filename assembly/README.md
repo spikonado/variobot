@@ -1,4 +1,4 @@
-# assembly
+# Assembly
 
 > [!NOTE]
 > If you just want to run the simulation go to [`installation`](./../installation), after sourcing your workspace run `ros2 launch variobot_gz full_sim_launch.yaml`.

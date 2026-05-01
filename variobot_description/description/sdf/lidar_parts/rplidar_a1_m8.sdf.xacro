@@ -80,7 +80,7 @@
         </scan>
         <range>
           <resolution>0.01</resolution>
-          <min>0.3</min>
+          <min>0.15</min>
           <max>12</max>
         </range>
       </lidar>

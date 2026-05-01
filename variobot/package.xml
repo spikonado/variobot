@@ -10,9 +10,11 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <exec_depend>micro_ros_agent</exec_depend>
+  <exec_depend>nav2-rviz-plugins</exec_depend>
   <exec_depend>ros2launch</exec_depend>
   <exec_depend>variobot_description</exec_depend>
   <exec_depend>variobot_control</exec_depend>
+  <exec_depend>variobot_navigation</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

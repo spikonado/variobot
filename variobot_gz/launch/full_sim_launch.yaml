@@ -7,7 +7,7 @@ launch:
 
   - arg:
       name: 'world_file'
-      default: '$(find-pkg-share variobot_gz)/worlds/basic_world.sdf.xacro'
+      default: '$(find-pkg-share variobot_gz)/worlds/obstacles_world.sdf.xacro'
 
   - include:
       file: '$(find-pkg-share variobot_gz)/launch/simulator_launch.yaml'
@@ -20,3 +20,6 @@ launch:
 
   - include:
       file: '$(find-pkg-share variobot_gz)/launch/ros_gz_bridge_launch.yaml'
+
+  - include:
+      file: '$(find-pkg-share variobot_navigation)/launch/nav_launch.yaml'
