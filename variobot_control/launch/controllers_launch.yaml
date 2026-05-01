@@ -12,6 +12,8 @@ launch:
         rear_left_coupling_joint_pid_controller
         rear_right_coupling_joint_pid_controller
         mobility_system_controller
+        --switch-timeout 60.0
+        --service-call-timeout 60.0
         --controller-ros-args '-r /mobility_system_controller/odometry:=/odom'
         --controller-ros-args '-r /mobility_system_controller/reference:=/cmd_vel'
         --controller-ros-args '-r /mobility_system_controller/tf_odometry:=/tf'

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<sdf version="1.12" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <link name="lidar_base_link">
+    <pose relative_to="lidar_base_joint" />
+    <visual name="lidar_base_visual">
+      <pose relative_to="lidar_base_link" degrees="true">0 0 0 0 0 -90</pose>
+      <geometry>
+        <mesh>
+          <uri>
+            package://variobot_description/meshes/Lidar_Parts/Lidar_Base.dae
+          </uri>
+        </mesh>
+      </geometry>
+    </visual>
+    <collision name="lidar_base_collision">
+      <pose relative_to="lidar_base_link">0 0 0.0015 0 0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.1125</radius>
+          <length>0.003</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial auto="true" />
+  </link>
+
+  <joint name="lidar_holder_joint" type="fixed">
+    <pose relative_to="lidar_base_link" degrees="true">0 0 0.003 0 0 0</pose>
+    <parent>lidar_base_link</parent>
+    <child>lidar_holder_link</child>
+  </joint>
+
+  <xacro:include
+    filename="$(find variobot_description)/description/sdf/lidar_parts/rplidar_a1_m8.sdf.xacro" />
+</sdf>
