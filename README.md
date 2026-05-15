@@ -3,7 +3,8 @@
 VarioBot is a modular robotic platform for research and education with swappable mobility systems, configurable sensors, and dual versatile robotic arms.
 
 This project is currently in the early stages of development and is not yet fully functional or ready for general use.<br>
-Key features are still being implemented, and significant updates are expected. As such, the project's usability will be limited.<br>
+Key features are still being implemented, and significant updates are expected.
+As such, the project's usability will be limited.<br>
 Contributions, feedback, and suggestions are welcome to help improve this robot.
 
 > [!NOTE]
@@ -12,7 +13,8 @@ Contributions, feedback, and suggestions are welcome to help improve this robot.
 ## Why?
 
 There are no robots out there that are easy to use, completely modular, and low-cost.<br>
-This means educators, researchers, and students aren't able to access robots on which they can test a variety of algorithms and robot apps. This forces them to design a new robot for every task.<br>
+This means educators, researchers, and students aren't able to access robots on which they can test a variety of algorithms and robot apps.
+This forces them to design a new robot for every task.<br>
 VarioBot is being designed to fill this gap in robotics and usher in an era where people design more robot apps and fewer robots.
 
 ## Implemented Features
