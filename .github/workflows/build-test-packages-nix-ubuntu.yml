@@ -13,7 +13,7 @@ jobs:
   build_test_packages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
 
       - uses: cachix/install-nix-action@v31.10.6
         with:
