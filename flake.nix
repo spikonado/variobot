@@ -108,9 +108,9 @@
               rmw-fastrtps-shared-cpp
 
               # Tools
-              libsForQt5.qt5.qtwayland
               joint-state-publisher-gui
               plotjuggler-ros
+              qt6Packages.wayqt
               ros2controlcli
               rqt-common-plugins
             ];
