@@ -29,7 +29,7 @@ void encoder_init();
 double encoder_get_position(MotorId motor);
 
 /**
- * Get the current joint velocity in radians per second
+ * @brief Get the current joint velocity in radians per second
  * @param motor Which motor's velocity to retrieve
  */
 double encoder_get_velocity(MotorId motor);
