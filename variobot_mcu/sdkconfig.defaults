@@ -7,3 +7,7 @@ CONFIG_AUTOSTART_ARDUINO=n
 
 # FREERTOS
 CONFIG_FREERTOS_HZ=1000
+
+# Keep PCNT overflow compensation and count reads usable if flash cache is off
+CONFIG_PCNT_ISR_IRAM_SAFE=y
+CONFIG_PCNT_CTRL_FUNC_IN_IRAM=y
