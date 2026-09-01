@@ -14,10 +14,10 @@
 
 #include "variobot_mcu/encoder.hpp"
 
+#include <driver/gpio.h>
 #include <driver/pulse_cnt.h>
 #include <esp_log.h>
 #include <esp_timer.h>
-#include <hal/gpio_types.h>
 
 #include <cmath>
 #include <cstdint>
@@ -92,6 +92,10 @@ static void install_encoder(MotorId motor)
   chan_config.level_gpio_num = hw.pin_b;
   pcnt_channel_handle_t channel = nullptr;
   ESP_ERROR_CHECK(pcnt_new_channel(pcnt_units[motor], &chan_config, &channel));
+  // IDF 5.5.4 enables pull-ups in pcnt_new_channel(); IDF 6 does not. Pin the
+  // previous GPIO ISR contract so open-collector encoder lines stay defined.
+  ESP_ERROR_CHECK(gpio_set_pull_mode(hw.pin_a, GPIO_PULLUP_ONLY));
+  ESP_ERROR_CHECK(gpio_set_pull_mode(hw.pin_b, GPIO_PULLUP_ONLY));
 
   // 1x quadrature, matching the previous GPIO ISR: count on rising A, invert
   // when B is high so direction comes from the level signal.
