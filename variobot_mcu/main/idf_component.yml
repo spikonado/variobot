@@ -5,6 +5,4 @@ dependencies:
   drv8912:
     git: https://github.com/Amronos/DRV8912.git
     version: esp-idf
-  micro_ros_espidf_component:
-    git: https://github.com/Amronos/micro_ros_espidf_component.git
-    version: support-esp-idf-v5.5
+  micro-ros/micro_ros_espidf_component: '^25'
