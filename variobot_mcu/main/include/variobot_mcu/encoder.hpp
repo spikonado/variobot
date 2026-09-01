@@ -18,7 +18,7 @@
 #include "variobot_mcu/motor_control.hpp"
 
 /**
- * @brief Initialize encoders with input pullups and rising edge interrupts
+ * @brief Initialize encoders using the ESP-IDF pulse counter peripheral
  */
 void encoder_init();
 
