@@ -146,9 +146,9 @@ void joint_state_timer_callback(rcl_timer_t * timer, int64_t last_call_time)
   RCLC_UNUSED(last_call_time);
   if (timer != NULL) {
     rmw_uros_sync_session(1000);
-    joint_state_msg.header.stamp.sec = static_cast<int32_t>(rmw_uros_epoch_millis() / 1000);
-    joint_state_msg.header.stamp.nanosec =
-      static_cast<uint32_t>((rmw_uros_epoch_millis() % 1000) * 1000000);
+    const int64_t epoch_ns = rmw_uros_epoch_nanos();
+    joint_state_msg.header.stamp.sec = static_cast<int32_t>(epoch_ns / 1000000000LL);
+    joint_state_msg.header.stamp.nanosec = static_cast<uint32_t>(epoch_ns % 1000000000LL);
 
     for (uint8_t i = 0; i < NUM_MOTORS; i++) {
       joint_state_msg.position.data[i] = encoder_get_position(static_cast<MotorId>(i));
