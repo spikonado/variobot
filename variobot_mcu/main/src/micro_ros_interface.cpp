@@ -37,6 +37,7 @@
 #include "rclc/timer.h"
 #include "rclc/types.h"
 #include "rmw_microros/init_options.h"
+#include "rmw_microros/ping.h"
 #include "rmw_microros/time_sync.h"
 #include "rosidl_runtime_c/primitives_sequence_functions.h"
 #include "rosidl_runtime_c/string_functions.h"
@@ -175,6 +176,12 @@ void micro_ros_task(void * arg)
   // Static agent IP and port can be used instead of auto-discovery
   RCCHECK(rmw_uros_options_set_udp_address(
     CONFIG_MICRO_ROS_AGENT_IP, CONFIG_MICRO_ROS_AGENT_PORT, rmw_options));
+
+  while (rmw_uros_ping_agent_options(1000, 1, rmw_options) != RMW_RET_OK) {
+    ESP_LOGW(TAG, "Waiting for micro-ROS agent at %s:%s", CONFIG_MICRO_ROS_AGENT_IP,
+      CONFIG_MICRO_ROS_AGENT_PORT);
+    vTaskDelay(pdMS_TO_TICKS(500));
+  }
 #endif
 
   // Create init_options
