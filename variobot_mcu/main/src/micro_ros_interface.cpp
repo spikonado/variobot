@@ -37,6 +37,7 @@
 #include "rclc/timer.h"
 #include "rclc/types.h"
 #include "rmw_microros/init_options.h"
+#include "rmw_microros/ping.h"
 #include "rmw_microros/time_sync.h"
 #include "rosidl_runtime_c/primitives_sequence_functions.h"
 #include "rosidl_runtime_c/string_functions.h"
@@ -141,22 +142,42 @@ void joint_command_callback(const void * msgin)
   motor_control_update();
 }
 
+static constexpr TickType_t SESSION_SYNC_PERIOD_TICKS = pdMS_TO_TICKS(5000);
+
+static void sync_session_if_needed()
+{
+  static TickType_t last_sync_tick = 0;
+  const TickType_t now = xTaskGetTickCount();
+  if (rmw_uros_epoch_synchronized() && (now - last_sync_tick) < SESSION_SYNC_PERIOD_TICKS) {
+    return;
+  }
+
+  if (rmw_uros_ping_agent(200, 1) != RMW_RET_OK) {
+    return;
+  }
+
+  if (rmw_uros_sync_session(1000) == RMW_RET_OK) {
+    last_sync_tick = now;
+  }
+}
+
 void joint_state_timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 {
   RCLC_UNUSED(last_call_time);
-  if (timer != NULL) {
-    rmw_uros_sync_session(1000);
-    joint_state_msg.header.stamp.sec = static_cast<int32_t>(rmw_uros_epoch_millis() / 1000);
-    joint_state_msg.header.stamp.nanosec =
-      static_cast<uint32_t>((rmw_uros_epoch_millis() % 1000) * 1000000);
-
-    for (uint8_t i = 0; i < NUM_MOTORS; i++) {
-      joint_state_msg.position.data[i] = encoder_get_position(static_cast<MotorId>(i));
-      joint_state_msg.velocity.data[i] = encoder_get_velocity(static_cast<MotorId>(i));
-    }
-
-    RCSOFTCHECK(rcl_publish(&joint_state_publisher, &joint_state_msg, NULL));
+  if (timer == NULL || !rmw_uros_epoch_synchronized()) {
+    return;
   }
+
+  joint_state_msg.header.stamp.sec = static_cast<int32_t>(rmw_uros_epoch_millis() / 1000);
+  joint_state_msg.header.stamp.nanosec =
+    static_cast<uint32_t>((rmw_uros_epoch_millis() % 1000) * 1000000);
+
+  for (uint8_t i = 0; i < NUM_MOTORS; i++) {
+    joint_state_msg.position.data[i] = encoder_get_position(static_cast<MotorId>(i));
+    joint_state_msg.velocity.data[i] = encoder_get_velocity(static_cast<MotorId>(i));
+  }
+
+  RCSOFTCHECK(rcl_publish(&joint_state_publisher, &joint_state_msg, NULL));
 }
 
 void micro_ros_task(void * arg)
@@ -221,6 +242,7 @@ void micro_ros_task(void * arg)
 
   // Main Loop
   while (1) {
+    sync_session_if_needed();
     rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100));
     usleep(10000);
   }
