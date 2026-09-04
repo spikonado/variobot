@@ -483,19 +483,21 @@ dependencies:
       registry_url: https://components.espressif.com
       type: service
     version: 1.21.1
-  micro_ros_espidf_component:
-    component_hash: c8d8a0ff688c47a61cab2ef9b0d457c7808dbb4bd797cd1f83a59369ead0ecd2
-    dependencies: []
+  micro-ros/micro_ros_espidf_component:
+    component_hash: 222e551aad63aab0e9913d9f7b9fa885d0ac85aaf3da4194f33846b5bc30f96b
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.2'
     source:
-      git: https://github.com/Amronos/micro_ros_espidf_component.git
-      path: .
-      type: git
-    version: e747951f7b6f72958a1eed3295336bb46900cb9d
+      registry_url: https://components.espressif.com
+      type: service
+    version: 25.0.0
 direct_dependencies:
 - drv8912
 - espressif/arduino-esp32
 - idf
-- micro_ros_espidf_component
-manifest_hash: f4173b4919137e5d42bd41db6b6547da52dbfb4dd6b72da96e0ff7df71d18887
+- micro-ros/micro_ros_espidf_component
+manifest_hash: 192e290a0b5bc760dbc54bc2859dadc044bd95a174b536b3c9fb804a0e2e65da
 target: esp32s3
 version: 2.0.0
