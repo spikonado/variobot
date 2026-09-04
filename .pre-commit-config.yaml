@@ -57,8 +57,6 @@ repos:
         args: ['--verbose']
       - id: check-dependabot
         args: ['--verbose']
-      - id: check-renovate
-        args: ['--verbose']
 
   - repo: local
     hooks:
