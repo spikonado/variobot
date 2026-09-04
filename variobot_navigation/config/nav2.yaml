@@ -57,8 +57,15 @@ bt_navigator:
     bond_heartbeat_period: 0.1
     allow_parameter_qos_overrides: true
     error_code_name_prefixes:
+      - 'assisted_teleop'
+      - 'backup'
       - 'compute_path'
+      - 'drive_on_heading'
       - 'follow_path'
+      - 'nav_thru_poses'
+      - 'nav_to_pose'
+      - 'spin'
+      - 'wait'
     navigators: ['navigate_to_pose', 'navigate_through_poses']
     navigate_to_pose:
       plugin: 'nav2_bt_navigator::NavigateToPoseNavigator'
