@@ -146,19 +146,21 @@ static constexpr TickType_t SESSION_SYNC_PERIOD_TICKS = pdMS_TO_TICKS(5000);
 
 static void sync_session_if_needed()
 {
-  static TickType_t last_sync_tick = 0;
+  static TickType_t last_attempt_tick = 0;
+  static bool have_attempted = false;
   const TickType_t now = xTaskGetTickCount();
-  if (rmw_uros_epoch_synchronized() && (now - last_sync_tick) < SESSION_SYNC_PERIOD_TICKS) {
+  if (have_attempted && (now - last_attempt_tick) < SESSION_SYNC_PERIOD_TICKS) {
     return;
   }
+
+  have_attempted = true;
+  last_attempt_tick = now;
 
   if (rmw_uros_ping_agent(200, 1) != RMW_RET_OK) {
     return;
   }
 
-  if (rmw_uros_sync_session(1000) == RMW_RET_OK) {
-    last_sync_tick = now;
-  }
+  RCSOFTCHECK(rmw_uros_sync_session(1000));
 }
 
 void joint_state_timer_callback(rcl_timer_t * timer, int64_t last_call_time)
