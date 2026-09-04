@@ -23,6 +23,7 @@ front_left_coupling_joint_pid_controller:
         p: 1.0
         i: 0.0
         d: 0.0
+        activate_state_publisher: true
 
 front_right_coupling_joint_pid_controller:
   ros__parameters:
@@ -34,6 +35,7 @@ front_right_coupling_joint_pid_controller:
         p: 1.0
         i: 0.0
         d: 0.0
+        activate_state_publisher: true
 
 rear_left_coupling_joint_pid_controller:
   ros__parameters:
@@ -45,6 +47,7 @@ rear_left_coupling_joint_pid_controller:
         p: 1.0
         i: 0.0
         d: 0.0
+        activate_state_publisher: true
 
 rear_right_coupling_joint_pid_controller:
   ros__parameters:
@@ -56,6 +59,7 @@ rear_right_coupling_joint_pid_controller:
         p: 1.0
         i: 0.0
         d: 0.0
+        activate_state_publisher: true
 
 mobility_system_controller:
   ros__parameters:
