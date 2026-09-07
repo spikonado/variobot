@@ -241,6 +241,7 @@ controller_server:
     resolution: 0.05
     robot_radius: 0.12
     footprint_padding: 0.01
+    map_vis_z: -0.008
     plugins: ['voxel_layer', 'inflation_layer']
     voxel_layer:
       plugin: 'nav2_costmap_2d::VoxelLayer'
@@ -278,6 +279,7 @@ controller_server:
     robot_base_frame: 'base_link'
     robot_radius: 0.12
     footprint_padding: 0.01
+    map_vis_z: -0.008
     resolution: 0.05
     track_unknown_space: true
     plugins: ['static_layer', 'obstacle_layer', 'inflation_layer']
