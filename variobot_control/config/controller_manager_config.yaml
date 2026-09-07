@@ -5,3 +5,10 @@ controller_manager:
     update_rate: 60 # Hz
     joint_state_broadcaster:
       type: 'joint_state_broadcaster/JointStateBroadcaster'
+    diagnostics:
+      threshold:
+        controller_manager:
+          periodicity:
+            mean_error:
+              warn: 2.0
+              error: 5.0
