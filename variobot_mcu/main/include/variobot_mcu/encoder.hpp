@@ -18,7 +18,7 @@
 #include "variobot_mcu/motor_control.hpp"
 
 /**
- * @brief Initialize encoders with input pullups and rising edge interrupts
+ * @brief Initialize encoders using the ESP-IDF pulse counter peripheral
  */
 void encoder_init();
 
@@ -29,7 +29,7 @@ void encoder_init();
 double encoder_get_position(MotorId motor);
 
 /**
- * Get the current joint velocity in radians per second
+ * @brief Get the current joint velocity in radians per second
  * @param motor Which motor's velocity to retrieve
  */
 double encoder_get_velocity(MotorId motor);
