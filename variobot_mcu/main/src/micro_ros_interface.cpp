@@ -143,6 +143,7 @@ void joint_command_callback(const void * msgin)
 }
 
 static constexpr TickType_t SESSION_SYNC_PERIOD_TICKS = pdMS_TO_TICKS(5000);
+static bool session_time_synchronized = false;
 
 static void sync_session_if_needed()
 {
@@ -155,18 +156,21 @@ static void sync_session_if_needed()
 
   have_attempted = true;
   last_attempt_tick = now;
+  session_time_synchronized = false;
 
   if (rmw_uros_ping_agent(200, 1) != RMW_RET_OK) {
     return;
   }
 
-  RCSOFTCHECK(rmw_uros_sync_session(1000));
+  const rmw_ret_t sync_result = rmw_uros_sync_session(1000);
+  session_time_synchronized = sync_result == RMW_RET_OK;
+  RCSOFTCHECK(sync_result);
 }
 
 void joint_state_timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 {
   RCLC_UNUSED(last_call_time);
-  if (timer == NULL || !rmw_uros_epoch_synchronized()) {
+  if (timer == NULL || !session_time_synchronized || !rmw_uros_epoch_synchronized()) {
     return;
   }
 
