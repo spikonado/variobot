@@ -112,7 +112,7 @@ wheels = [
 
 [[package]]
 name = "colcon-core"
-version = "0.21.2"
+version = "0.21.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "coloredlogs", marker = "sys_platform == 'win32'" },
@@ -125,9 +125,9 @@ dependencies = [
     { name = "pytest-rerunfailures" },
     { name = "setuptools" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/86/85/a618a9389ac541c35e16f1f6b4bb96dbbe1f1a557df94b5a9cc618ae3849/colcon_core-0.21.2.tar.gz", hash = "sha256:e87e987930fd816ac798957f8f4ef056fa9d574830df720912798c60f3e0bc5e", size = 150261, upload-time = "2026-09-11T21:10:16.981Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a6/17/c81f873e0c46591753a81287017b97fecacef7d76d7a9f3073bde4be87fc/colcon_core-0.21.3.tar.gz", hash = "sha256:0e781b3f5d82fbd974e2ed61e40d37b711e2f94fac18971d6944cf7308ecb8d0", size = 150627, upload-time = "2026-09-17T16:53:57.806Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2b/3b/5f48150bdab7f1c970b1c5efbc869f771329d5b509f89a56cf0109eabb13/colcon_core-0.21.2-py3-none-any.whl", hash = "sha256:c2ef710640fb1b3717dd081acb8d8160913db7b81074954ed6f81afc72340737", size = 153657, upload-time = "2026-09-11T21:10:15.164Z" },
+    { url = "https://files.pythonhosted.org/packages/8f/ab/f52f1c8410518f4419ed7bb06550c9bb26acf1928848ae23136c0dbd51e5/colcon_core-0.21.3-py3-none-any.whl", hash = "sha256:033b06d77f972ce043efcbd7058a8020892d671e5b862dbb2cebe866a03e8ae7", size = 153881, upload-time = "2026-09-17T16:53:56.657Z" },
 ]
 
 [[package]]
@@ -183,28 +183,28 @@ wheels = [
 
 [[package]]
 name = "colcon-notification"
-version = "0.3.2"
+version = "0.3.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "colcon-core" },
     { name = "notify2", marker = "sys_platform == 'linux'" },
     { name = "pywin32", marker = "sys_platform == 'win32'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/02/2b/add9e9489f4e99527a870650a5fbf0207ccb5b7c6b0c8aef5f55cc510f81/colcon_notification-0.3.2.tar.gz", hash = "sha256:3bf3fc709b53134fd8b7c2db378d28b5033919e17b106b115c1210315d2ce5d7", size = 60808, upload-time = "2026-09-11T21:31:33.054Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/1c/29/c320df299b15020fd9be791cb61b2b43802f4075219183766bb78b04b98c/colcon_notification-0.3.3.tar.gz", hash = "sha256:a97cf4f9cf9ad60a78c3576ea633e50f7c9caae1d4aef57e55bdbb40d21151e0", size = 60891, upload-time = "2026-09-17T17:18:39.9Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5a/b8/bc5eafecb9f5af3f69e137f81d2fa7368627789d5602537fb1353c2de670/colcon_notification-0.3.2-py3-none-any.whl", hash = "sha256:d391fcd7cfc325437d3e72fbf5182dce5dadcdf7a14f22ad239b467765009e60", size = 63499, upload-time = "2026-09-11T21:31:31.848Z" },
+    { url = "https://files.pythonhosted.org/packages/8e/85/b268abde9b36656211d3ed10745d352d0e8dd492ff552b66847856a97fff/colcon_notification-0.3.3-py3-none-any.whl", hash = "sha256:c3cffd9f8bbd4e673307fb3d4d06d624d0d9023bad1c12c3fea2dd3f9b641ad9", size = 63618, upload-time = "2026-09-17T17:18:38.539Z" },
 ]
 
 [[package]]
 name = "colcon-output"
-version = "0.2.14"
+version = "0.2.15"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "colcon-core" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4a/d0/153769ab8509c22df0a2358cbec2c12517bea7ae6d646eb29903d500accc/colcon_output-0.2.14.tar.gz", hash = "sha256:21eb58ee2fe2df76e121ba48eb022c6058bf24cbd6d66b433fbd3dfb0f982c47", size = 13426, upload-time = "2026-03-27T22:04:36.619Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/25/0e/1261291e6610aa13ec39f3d5363ae1fc084cf4281eb05cbc5d920241be9c/colcon_output-0.2.15.tar.gz", hash = "sha256:db72d0353938c4e85866d9515be08149a2dd216705528b98d092a645b2abac1a", size = 13605, upload-time = "2026-09-17T17:14:03.839Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8b/f4/e5bc6d6a365a0f2ccaf0764d925268d6926b228534fae3a402edbdd2f78a/colcon_output-0.2.14-py3-none-any.whl", hash = "sha256:a67aca4159fb4a20ea2b8a28ccf6e32af8b46be242ddbf9df1e12b8beb788e7d", size = 14537, upload-time = "2026-03-27T22:04:35.676Z" },
+    { url = "https://files.pythonhosted.org/packages/e5/0c/95b6551e797111e481994e04bcc77d225753f9ea6d2ffaa2c96fa9e6bcd8/colcon_output-0.2.15-py3-none-any.whl", hash = "sha256:89649cd67f5c7991145730a70bee703d63b7883ff903831502023e9ccda3cce0", size = 14660, upload-time = "2026-09-17T17:14:02.813Z" },
 ]
 
 [[package]]
@@ -531,11 +531,11 @@ wheels = [
 
 [[package]]
 name = "pyparsing"
-version = "3.3.2"
+version = "3.3.3"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f3/91/9c6ee907786a473bf81c5f53cf703ba0957b23ab84c264080fb5a450416f/pyparsing-3.3.2.tar.gz", hash = "sha256:c777f4d763f140633dcb6d8a3eda953bf7a214dc4eff598413c070bcdc117cbc", size = 6851574, upload-time = "2026-01-21T03:57:59.36Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e4/11/b213bebff182584360cb8d17c72c1677fec5c5c228de439e63bcf8ab1c8f/pyparsing-3.3.3.tar.gz", hash = "sha256:928ae7e20211f3b6f3915a72f06a0cfd29ab9d24279dd6346b6b1a7146397d36", size = 1050487, upload-time = "2026-09-20T20:59:05.609Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/10/bd/c038d7cc38edc1aa5bf91ab8068b63d4308c66c4c8bb3cbba7dfbc049f9c/pyparsing-3.3.2-py3-none-any.whl", hash = "sha256:850ba148bd908d7e2411587e247a1e4f0327839c40e2e5e6d05a007ecc69911d", size = 122781, upload-time = "2026-01-21T03:57:55.912Z" },
+    { url = "https://files.pythonhosted.org/packages/38/bb/d215ee7c73b61497b28a5503f9f53523f294fcc936762b7caf90e0c1c2b5/pyparsing-3.3.3-py3-none-any.whl", hash = "sha256:ece8c00a69cf01b45d0b1dedabb469c90d8caf996d4fda40f147627a122849a4", size = 126420, upload-time = "2026-09-20T20:59:04.025Z" },
 ]
 
 [[package]]
@@ -591,15 +591,15 @@ wheels = [
 
 [[package]]
 name = "pytest-rerunfailures"
-version = "16.6.1"
+version = "16.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "packaging" },
     { name = "pytest" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/20/ce/065fde089d5a7f46fe8372c3f340c7aaa8708734d2e8ae3032f0c29a4b1d/pytest_rerunfailures-16.6.1.tar.gz", hash = "sha256:20ac38d31f9319c4e8f43fe0d0e9c22755508e8e7987a88de6d7fd93fc6bdabb", size = 47719, upload-time = "2026-09-03T06:50:07.893Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d1/b0/6b5337f9d59b26b0069ea3d5e863c31dc04b69e51bbfb1cf2ea6328fba87/pytest_rerunfailures-16.7.tar.gz", hash = "sha256:6956ddfb65ca1d07e7e3d99e2c5359d82300f4cb062e6049563bd2c106f72d5c", size = 59666, upload-time = "2026-09-17T07:08:48.871Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0b/0d/4da1860f933e271569405fd8adef7f3e7f1c2bd1b544d2ee83a8e0acf1d2/pytest_rerunfailures-16.6.1-py3-none-any.whl", hash = "sha256:0c38d314a0a7e32795f2dbdeeb2b3d141ecf3d3abe10c8c32dae223d45ac7b3d", size = 21035, upload-time = "2026-09-03T06:50:06.601Z" },
+    { url = "https://files.pythonhosted.org/packages/c1/d3/07ea35102cf2020ddaaac368d2a6f0bcc63d6523fb8918805bac3eb8b98f/pytest_rerunfailures-16.7-py3-none-any.whl", hash = "sha256:edf1886209c2b7dafe35b5bf1708d6ec40ccf6c6b357f0f02807efcec0204c99", size = 23952, upload-time = "2026-09-17T07:08:47.635Z" },
 ]
 
 [[package]]
