@@ -9,7 +9,7 @@ behavior_server:
     global_frame: 'map'
     local_frame: 'odom'
     robot_base_frame: 'base_link'
-    introspection_mode: 'disabled'
+    service_introspection_mode: 'disabled'
     behavior_plugins:
       - 'spin'
       - 'backup'
@@ -49,7 +49,7 @@ bt_navigator:
     filter_duration: 0.3
     default_server_timeout: 20
     wait_for_service_timeout: 1000
-    introspection_mode: 'disabled'
+    service_introspection_mode: 'disabled'
     transform_tolerance: 0.1
     global_frame: 'map'
     robot_base_frame: 'base_link'
@@ -109,7 +109,7 @@ controller_server:
     costmap_update_timeout: 0.3
     use_realtime_priority: false
     bond_heartbeat_period: 0.1
-    introspection_mode: 'disabled'
+    service_introspection_mode: 'disabled'
     allow_parameter_qos_overrides: true
     failure_tolerance: 0.3
     publish_zero_velocity: true
@@ -327,7 +327,7 @@ smoother_server:
     footprint_topic: 'global_costmap/published_footprint'
     transform_tolerance: 0.1
     robot_base_frame: 'base_link'
-    introspection_mode: 'disabled'
+    service_introspection_mode: 'disabled'
     bond_heartbeat_period: 0.1
     allow_parameter_qos_overrides: true
     smoother_plugins: ['simple_smoother']
@@ -346,7 +346,7 @@ waypoint_follower:
     stop_on_failure: false
     loop_rate: 20
     global_frame_id: 'map'
-    introspection_mode: 'disabled'
+    service_introspection_mode: 'disabled'
     bond_heartbeat_period: 0.1
     allow_parameter_qos_overrides: true
 
