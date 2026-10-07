@@ -21,7 +21,6 @@ behavior_server:
     bond_heartbeat_period: 0.1
     projection_time: 1.0
     simulation_time_step: 0.1
-    enable_stamped_cmd_vel: true
     cmd_vel_teleop: '/cmd_vel'
     min_rotational_vel: 0.2
     max_rotational_vel: 2.5
@@ -72,7 +71,6 @@ collision_monitor:
     odom_frame_id: 'odom'
     cmd_vel_in_topic: '/cmd_vel_smoothed'
     cmd_vel_out_topic: '/cmd_vel'
-    enable_stamped_cmd_vel: true
     state_topic: 'collision_monitor_state'
     transform_tolerance: 0.1
     source_timeout: 0.5
@@ -119,7 +117,6 @@ controller_server:
     speed_limit_topic: '/speed_limit'
     odom_topic: '/odom'
     odom_duration: 0.2
-    enable_stamped_cmd_vel: true
     progress_checker_plugins: ['progress_checker']
     progress_checker:
       plugin: 'nav2_controller::SimpleProgressChecker'
@@ -353,7 +350,6 @@ waypoint_follower:
 velocity_smoother:
   ros__parameters:
     use_realtime_priority: false
-    enable_stamped_cmd_vel: true
     bond_heartbeat_period: 0.1
     max_velocity: [0.35, 0.35, 2.5]
     min_velocity: [-0.35, -0.35, -2.5]
